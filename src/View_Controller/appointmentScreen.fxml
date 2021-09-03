@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="606.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.appointmentController">
+   <children>
+      <VBox layoutX="45.0" layoutY="25.0" prefHeight="512.0" prefWidth="117.0" spacing="30.0">
+         <children>
+            <Label prefWidth="90.0" text="Appointment ID:" />
+            <Label text="Customer ID:" />
+            <Label text="Title:" />
+            <Label text="Description:" />
+            <Label text="Location:" />
+            <Label text="Contact:" />
+            <Label text="Type:" />
+            <Label text="Start Date:" />
+            <Label text="Start Time:" />
+            <Label text="End Date:" />
+            <Label text="End Time:" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="269.0" layoutY="25.0" prefHeight="200.0" prefWidth="100.0" />
+      <VBox layoutX="163.0" layoutY="25.0" prefHeight="498.0" prefWidth="374.0" spacing="20.0">
+         <children>
+            <TextField fx:id="appointmentIDText" disable="true" />
+            <TextField fx:id="custuomerIDText" />
+            <TextField fx:id="titleText" prefWidth="0.0" />
+            <TextField fx:id="descriptionText" />
+            <TextField fx:id="locationText" />
+            <ComboBox fx:id="contactCombo" editable="true" prefWidth="150.0" />
+            <ComboBox fx:id="typeCombo" editable="true" prefWidth="150.0" />
+            <DatePicker fx:id="startDatePicker" />
+            <ChoiceBox fx:id="startTimeChoice" prefWidth="150.0" />
+            <DatePicker fx:id="endDatePicker" />
+            <ChoiceBox fx:id="endTimeChoice" prefWidth="150.0" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <HBox layoutX="424.0" layoutY="547.0" spacing="20.0">
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClicked" text="Save" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

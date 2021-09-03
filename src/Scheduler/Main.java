@@ -1,10 +1,12 @@
+package Scheduler;
+
+import DBAccess.DBCountries;
+import Utilities.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.Locale;
 
 /** JavaDoc Folder Location
  * Folder containing Javadoc comments is located  under \Butalid_C195_PA.zip\Butalid_C195_PA\javadoc
@@ -14,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View_Controller/loginScreen.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -22,6 +24,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        DBConnection.startConnection();
         launch(args);
+        DBConnection.closeConnection();
     }
 }

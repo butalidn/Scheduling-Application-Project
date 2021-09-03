@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="230.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.manageController">
+   <children>
+      <VBox alignment="CENTER" layoutX="99.0" layoutY="27.0" prefHeight="162.0" prefWidth="221.0">
+         <children>
+            <Label text="Welcome" />
+            <Label fx:id="userLabel" alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="User!" />
+            <VBox prefHeight="33.0" prefWidth="222.0" />
+            <VBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button fx:id="customerButton" mnemonicParsing="false" onAction="#customerButtonClicked" text="Manage Customer Records" />
+                  <Button fx:id="appointmentButton" mnemonicParsing="false" onAction="#appointmentButtonClicked" text="Manage Appointments" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
