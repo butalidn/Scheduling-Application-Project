@@ -1,16 +1,16 @@
 package DBAccess;
 
-import Model.Countries;
 import Model.User;
 import Utilities.DBConnection;
+import Utilities.DBQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBUser {
+    private static User user;
+
     public static ObservableList<User> getAllUsers() {
         ObservableList<User> userList = FXCollections.observableArrayList();
 
@@ -33,6 +33,37 @@ public class DBUser {
         }
 
         return userList;
+    }
+
+    public static boolean searchUser(String searchUser, String searchPassword) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+
+        String selectUserStatement = "SELECT * FROM users WHERE User_Name = ? AND Password = ?;";
+        DBQuery.setPreparedStatement(conn, selectUserStatement);
+        PreparedStatement userStatement = DBQuery.getPreparedStatement();
+
+        userStatement.setString(1, searchUser);
+        userStatement.setString(2, searchPassword);
+
+        userStatement.execute();
+        ResultSet userRS = userStatement.getResultSet();
+
+        if (userRS.next()) {
+            int userID = userRS.getInt("User_ID");
+            String username = userRS.getString("User_Name");
+            String password = userRS.getString("password");
+            user = new User(userID,username,password);
+
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public static User getUser() {
+        return user;
     }
 
 }

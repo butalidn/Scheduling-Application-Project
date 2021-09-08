@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="663.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.customerController">
    <children>
-      <TableView fx:id="customerTable" layoutX="44.0" layoutY="39.0" prefHeight="449.0" prefWidth="1021.0">
+      <TableView fx:id="customerTable" layoutX="44.0" layoutY="39.0" onMouseClicked="#rowClicked" prefHeight="449.0" prefWidth="1021.0">
          <columns>
             <TableColumn fx:id="customerIDCol" prefWidth="113.45452880859375" text="Customer_ID" />
             <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="123.0545654296875" text="Name" />
@@ -32,8 +32,8 @@
                   <TextField fx:id="customerText" disable="true" prefWidth="153.0" />
                   <Label prefHeight="26.0" prefWidth="42.0" text="Name:" />
                   <TextField fx:id="nameText" prefHeight="26.0" prefWidth="323.0" />
-                  <TextField fx:id="numberText" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="200.0" />
                   <Label prefHeight="51.0" prefWidth="99.0" text="Phone Number:" />
+                  <TextField fx:id="numberText" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="0.0" prefWidth="1001.0" spacing="10.0">
@@ -51,9 +51,9 @@
                   <Label prefHeight="116.0" prefWidth="46.0" text="Country:" />
                   <ComboBox fx:id="countryCombo" editable="true" prefHeight="26.0" prefWidth="181.0" />
                   <HBox prefHeight="26.0" prefWidth="212.0" />
-                  <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="Add" />
-                  <Button fx:id="updateButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="92.0" text="Update" />
-                  <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="Delete" />
+                  <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="26.0" prefWidth="66.0" text="Add" />
+                  <Button fx:id="updateButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Update" />
+                  <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="79.0" text="Delete" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
