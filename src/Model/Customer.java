@@ -10,7 +10,6 @@ public class Customer {
         private String phone;
         private String firstLevel;
         private String country;
-        private Division division;
 
     public Customer(int id, String name, String address, String postal, String phone, String firstLevel, String country) {
             this.id = id;

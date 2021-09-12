@@ -20,8 +20,8 @@
             <TableColumn fx:id="addressCol" prefWidth="205.96368408203125" text="Address" />
             <TableColumn fx:id="postalCol" prefWidth="95.99990844726562" text="Postal Code" />
             <TableColumn fx:id="numberCol" prefWidth="137.89093017578125" text="Phone Number" />
-            <TableColumn fx:id="firstLevelCol" prefWidth="157.0909423828125" text="First-Level Divison" />
-            <TableColumn fx:id="countryCol" prefWidth="186.7637939453125" text="Country" />
+            <TableColumn fx:id="firstLevelCol" prefWidth="231.272705078125" text="First-Level Divison" />
+            <TableColumn fx:id="countryCol" prefWidth="114.3272705078125" text="Country" />
          </columns>
       </TableView>
       <VBox layoutX="37.0" layoutY="489.0" prefHeight="173.0" prefWidth="1021.0" spacing="12.0">
@@ -47,10 +47,10 @@
             <HBox prefHeight="26.0" prefWidth="1071.0" spacing="10.0">
                <children>
                   <Label prefHeight="174.0" prefWidth="104.0" text="First-Level Division:" />
-                  <ComboBox fx:id="firstLevelCombo" editable="true" prefHeight="26.0" prefWidth="171.0" />
+                  <ComboBox fx:id="firstLevelCombo" onAction="#firstLevelSelected" prefHeight="26.0" prefWidth="226.0" />
                   <Label prefHeight="116.0" prefWidth="46.0" text="Country:" />
-                  <ComboBox fx:id="countryCombo" editable="true" prefHeight="26.0" prefWidth="181.0" />
-                  <HBox prefHeight="26.0" prefWidth="212.0" />
+                  <ComboBox fx:id="countryCombo" onAction="#countrySelected" prefHeight="26.0" prefWidth="181.0" />
+                  <HBox prefHeight="26.0" prefWidth="156.0" />
                   <Button fx:id="addButton" alignment="CENTER" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="26.0" prefWidth="66.0" text="Add" />
                   <Button fx:id="updateButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Update" />
                   <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="79.0" text="Delete" />

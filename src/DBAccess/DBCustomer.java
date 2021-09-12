@@ -67,7 +67,7 @@ public class DBCustomer {
 
         int divisionID = divisionSet.getInt("Division_ID");
 
-        String updateSQL = "update customers set customer_name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? where customer_id = ?;";
+        String updateSQL = "update customers set customer_name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_id = ? where customer_id = ?;";
         DBQuery.setPreparedStatement(conn, updateSQL);
         PreparedStatement updateStatement = DBQuery.getPreparedStatement();
         updateStatement.setString(1, c.getName());
@@ -76,12 +76,32 @@ public class DBCustomer {
         updateStatement.setString(4, c.getPhone());
         updateStatement.setInt(5, divisionID);
         updateStatement.setInt(6, c.getId());
+
         updateStatement.execute();
     }
 
-    public static void addCustomer(Customer c) {
+    public static void addCustomer(Customer c) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
-        String addSQL = "insert into customers (customer_name, address, postal_code, phone, division_id)
+        String addSQL = "insert into customers (customer_name, address, postal_code, phone, division_id) " +
+                "values (?, ?, ?, ?, ?);";
+        DBQuery.setPreparedStatement(conn, addSQL);
+        PreparedStatement addStatement = DBQuery.getPreparedStatement();
+        addStatement.setString(1, c.getName());
+        addStatement.setString(2, c.getAddress());
+        addStatement.setString(3, c.getPostal());
+        addStatement.setString(4, c.getPhone());
+        addStatement.setInt(5, DBDivision.lookupDivisionID(c.getFirstLevel()));
+        addStatement.execute();
+    }
+
+    public static void removeCustomer(Customer c) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+
+        String deleteDQL = "delete from customers where customer_id = ?;";
+        DBQuery.setPreparedStatement(conn, deleteDQL);
+        PreparedStatement deleteStatement = DBQuery.getPreparedStatement();
+        deleteStatement.setInt(1, c.getId());
+        deleteStatement.execute();
     }
 }

@@ -34,7 +34,7 @@ public class Division {
         country = DBDivision.lookupCountry(countryID);
     }
 
-    public String  getCountry() {
+    public String getCountry() {
         return country;
     }
 }

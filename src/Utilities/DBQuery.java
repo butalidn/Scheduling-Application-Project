@@ -10,7 +10,7 @@ public class DBQuery {
     private static PreparedStatement statement;
 
     public static void setPreparedStatement(Connection conn, String sqlStatement) throws SQLException {
-        statement = conn.prepareStatement(sqlStatement);
+        statement = conn.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
     }
 
     public static PreparedStatement getPreparedStatement() {
