@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,7 +38,25 @@ public class Main extends Application{
 
 
     public static void main(String[] args) throws SQLException {
+        //Locale.setDefault(new Locale("fr"));
+
         DBConnection.startConnection();
+
+//        String sql = "SELECT * FROM appointments";
+//        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+//
+//        ResultSet rs = ps.executeQuery();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm a");
+//        rs.next();
+//
+//        LocalDateTime startTime = rs.getTimestamp("Start").toLocalDateTime();
+//        System.out.println(startTime.format(formatter));
+//
+//        ZonedDateTime zonedCDT = startTime.atZone(ZoneId.systemDefault());
+//        ZonedDateTime zoneEST = zonedCDT.withZoneSameInstant(ZoneId.of("America/New_York"));
+//        zoneEST.toLocalDateTime();
+//
+//        System.out.println(zoneEST.format(formatter));
 
 
         /*Connection conn = DBConnection.getConnection();

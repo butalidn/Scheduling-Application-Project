@@ -112,19 +112,47 @@ public class customerController implements Initializable {
 
     public void addButtonClicked(ActionEvent actionEvent) throws SQLException {
         try {
-            Customer c = new Customer(0, nameText.getText(), addressText.getText(), postalText.getText(),
-                    numberText.getText(), firstLevelCombo.getSelectionModel().getSelectedItem().toString(), countryCombo.getSelectionModel().getSelectedItem().toString());
-            DBCustomer.addCustomer(c);
-            customerTable.setItems(DBCustomer.getAllCustomers());
-            customerText.setText(null);
-            nameText.setText(null);
-            numberText.setText(null);
-            addressText.setText(null);
-            postalText.setText(null);
+            boolean goodInfo = true;
 
-            firstLevelCombo.getSelectionModel().clearSelection();
-            countryCombo.getSelectionModel().clearSelection();
-            //firstLevelCombo.setPromptText("Select a country first");
+            if (nameText.getText().trim().isEmpty()) {
+                System.out.println("Missing name");
+                goodInfo = false;
+            }
+            if (addressText.getText().trim().isEmpty()) {
+                System.out.println("Missing address");
+                goodInfo = false;
+            }
+            if (postalText.getText().trim().isEmpty()) {
+                System.out.println("Missing postal");
+                goodInfo = false;
+            }
+            if (numberText.getText().trim().isEmpty()) {
+                System.out.println("Missing number");
+                goodInfo = false;
+            }
+            if (countryCombo.getSelectionModel().getSelectedItem() == null) {
+                System.out.println("Missing country");
+                goodInfo = false;
+            }
+            if (goodInfo) {
+                try {
+                    Customer c = new Customer(0, nameText.getText(), addressText.getText(), postalText.getText(),
+                            numberText.getText(), firstLevelCombo.getSelectionModel().getSelectedItem().toString(), countryCombo.getSelectionModel().getSelectedItem().toString());
+                    DBCustomer.addCustomer(c);
+                    customerTable.setItems(DBCustomer.getAllCustomers());
+                    customerText.setText(null);
+                    nameText.setText(null);
+                    numberText.setText(null);
+                    addressText.setText(null);
+                    postalText.setText(null);
+
+                    firstLevelCombo.getSelectionModel().clearSelection();
+                    countryCombo.getSelectionModel().clearSelection();
+                    //firstLevelCombo.setPromptText("Select a country first");
+                } catch (Exception e) {
+                    System.out.println("Missing info");
+                }
+            }
         }
         catch (Exception e) {
             System.out.println("Missing info");
@@ -133,19 +161,47 @@ public class customerController implements Initializable {
 
     public void updateButtonClicked(ActionEvent actionEvent) throws SQLException {
         try {
-            Customer c = (Customer) customerTable.getSelectionModel().getSelectedItem();
-            c.setName(nameText.getText());
-            c.setPhone(numberText.getText());
-            c.setAddress(addressText.getText());
-            c.setPostal(postalText.getText());
-            c.setFirstLevel(firstLevelCombo.getSelectionModel().getSelectedItem().toString());
-            c.setCountry(countryCombo.getSelectionModel().getSelectedItem().toString());
-            DBCustomer.updateCustomer(c);
+            boolean goodInfo = true;
 
-            customerTable.refresh();
+            if (nameText.getText().trim().isEmpty()) {
+                System.out.println("Missing name");
+                goodInfo = false;
+            }
+            if (addressText.getText().trim().isEmpty()) {
+                System.out.println("Missing address");
+                goodInfo = false;
+            }
+            if (postalText.getText().trim().isEmpty()) {
+                System.out.println("Missing postal");
+                goodInfo = false;
+            }
+            if (numberText.getText().trim().isEmpty()) {
+                System.out.println("Missing number");
+                goodInfo = false;
+            }
+            if (countryCombo.getSelectionModel().getSelectedItem() == null) {
+                System.out.println("Missing country");
+                goodInfo = false;
+            }
+            if (goodInfo) {
+                try {
+                    Customer c = (Customer) customerTable.getSelectionModel().getSelectedItem();
+                    c.setName(nameText.getText());
+                    c.setPhone(numberText.getText());
+                    c.setAddress(addressText.getText());
+                    c.setPostal(postalText.getText());
+                    c.setFirstLevel(firstLevelCombo.getSelectionModel().getSelectedItem().toString());
+                    c.setCountry(countryCombo.getSelectionModel().getSelectedItem().toString());
+                    DBCustomer.updateCustomer(c);
 
+                    customerTable.refresh();
+
+                } catch (NullPointerException e) {
+                    System.out.println("Error. Customer not selected");
+                }
+            }
         }
-        catch (NullPointerException e) {
+        catch (Exception e) {
             System.out.println("Error. Customer not selected");
         }
     }

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="663.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.customerController">
    <children>
@@ -58,7 +59,14 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="40.0" prefWidth="977.0" />
+                  <HBox prefHeight="40.0" prefWidth="977.0">
+                     <children>
+                        <Label text="*A country must be selected before selecting a first-level division">
+                           <font>
+                              <Font name="System Italic" size="12.218181610107422" />
+                           </font>
+                        </Label>
+                     </children></HBox>
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="72.0" text="Back" />
                </children>
             </HBox>

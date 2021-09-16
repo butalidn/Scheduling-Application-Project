@@ -9,21 +9,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="636.0" prefWidth="1382.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.scheduleController">
+<AnchorPane prefHeight="636.0" prefWidth="1475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.scheduleController">
    <children>
-      <TableView fx:id="scheduleTable" layoutX="41.0" layoutY="44.0" prefHeight="511.0" prefWidth="1306.0">
+      <TableView fx:id="scheduleTable" layoutX="41.0" layoutY="42.0" onMouseClicked="#rowSelected" prefHeight="511.0" prefWidth="1392.0">
         <columns>
-          <TableColumn prefWidth="118.6908950805664" text="Appointment_ID" />
-            <TableColumn minWidth="0.0" prefWidth="89.890869140625" text="Customer_ID" />
-          <TableColumn minWidth="0.0" prefWidth="143.9999542236328" text="Title" />
-            <TableColumn minWidth="0.0" prefWidth="179.78182983398438" text="Description" />
-            <TableColumn minWidth="0.0" prefWidth="154.47262573242188" text="Location" />
-            <TableColumn minWidth="0.0" prefWidth="131.78179931640625" text="Contact" />
-            <TableColumn prefWidth="96.87271118164062" text="Type" />
-            <TableColumn prefWidth="96.0" text="Start Date" />
-            <TableColumn prefWidth="109.0909423828125" text="Start Time" />
-            <TableColumn prefWidth="89.018310546875" text="End Date" />
-            <TableColumn prefWidth="101.2362060546875" text="End Time" />
+          <TableColumn fx:id="appointmentCol" prefWidth="118.6908950805664" text="Appointment_ID" />
+            <TableColumn fx:id="customerCol" minWidth="0.0" prefWidth="89.890869140625" text="Customer" />
+            <TableColumn fx:id="userCol" prefWidth="134.39996337890625" text="User" />
+          <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="130.03634643554688" text="Title" />
+            <TableColumn fx:id="descriptionCol" minWidth="0.0" prefWidth="185.890869140625" text="Description" />
+            <TableColumn fx:id="locationCol" minWidth="0.0" prefWidth="163.20001220703125" text="Location" />
+            <TableColumn fx:id="contactCol" minWidth="0.0" prefWidth="137.0181884765625" text="Contact" />
+            <TableColumn fx:id="typeCol" prefWidth="169.30902099609375" text="Type" />
+            <TableColumn fx:id="startCol" prefWidth="130.9090576171875" text="Start Time" />
+            <TableColumn fx:id="endCol" prefWidth="142.254638671875" text="End Time" />
         </columns>
       </TableView>
       <HBox layoutX="599.0" layoutY="576.0" prefHeight="26.0" prefWidth="745.0" spacing="20.0">
@@ -42,6 +41,7 @@
                   <Font name="System Bold" size="12.218181610107422" />
                </font>
             </Label>
+            <RadioButton fx:id="allRadio" mnemonicParsing="false" text="All" />
             <RadioButton fx:id="monthRadio" mnemonicParsing="false" text="Month" />
             <RadioButton fx:id="weekRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Week" />
          </children>

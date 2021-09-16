@@ -49,7 +49,7 @@ public class loginController implements Initializable {
                 userLabel.setText(rb.getString("Username") + ":");
                 passwordLabel.setText(rb.getString("Password") + ":");
                 submitButton.setText(rb.getString("Submit"));
-                locationPromptLabel.setText(rb.getString("Your location is" + ":"));
+                locationPromptLabel.setText(rb.getString("Your location is") + ":");
             }
         }
         catch (Exception e) {}

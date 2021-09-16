@@ -104,4 +104,13 @@ public class DBCustomer {
         deleteStatement.setInt(1, c.getId());
         deleteStatement.execute();
     }
+
+    public static String lookupCustomer(int id) throws SQLException {
+        String sql = "select * from customers where customer_id = ?;";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getString("Customer_Name");
+    }
 }
