@@ -7,6 +7,8 @@ import Model.Appointment;
 import Model.Contact;
 import Model.Customer;
 import Model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,13 +18,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class appointmentController implements Initializable {
+    @FXML private Label locationLabel;
+    @FXML private ComboBox startCombo;
+    @FXML private ComboBox endCombo;
     @FXML private TextField typeText;
     @FXML private ComboBox customerCombo;
     @FXML private ComboBox userCombo;
@@ -34,17 +42,91 @@ public class appointmentController implements Initializable {
     @FXML private TextField descriptionText;
     @FXML private TextField locationText;
     @FXML private ComboBox contactCombo;
-    @FXML private ComboBox typeCombo;
-    @FXML private DatePicker startDatePicker;
-    @FXML private ChoiceBox startTimeChoice;
-    @FXML private DatePicker endDatePicker;
-    @FXML private ChoiceBox endTimeChoice;
     @FXML private TextField appointmentIDText;
 
     private Appointment appointment = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalDateTime startBusinessTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(8,0));
+        LocalDateTime endBusinessTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(22,0));
+
+        ZonedDateTime zonedStartET = startBusinessTime.atZone(ZoneId.of("America/New_York"));
+        ZonedDateTime zonedStartLocal = zonedStartET.withZoneSameInstant(ZoneId.systemDefault());
+
+        ZonedDateTime zonedEndET = endBusinessTime.atZone(ZoneId.of("America/New_York"));
+        ZonedDateTime zonedEndLocal = zonedEndET.withZoneSameInstant(ZoneId.systemDefault());
+
+        startCombo.setCellFactory(new Callback<ListView<LocalDateTime>, ListCell<LocalDateTime>>() {
+            @Override
+            public ListCell<LocalDateTime> call(ListView<LocalDateTime> listView) {
+                ListCell<LocalDateTime> cell = new ListCell<LocalDateTime>(){
+                    @Override
+                    public void updateItem(LocalDateTime time, boolean empty) {
+                        super.updateItem(time, empty);
+                        if (time != null) {
+                            setText(timeFormatter.format(time));
+                        }
+                        else {
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
+        startCombo.setButtonCell(new ListCell<LocalDateTime>(){
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty){
+                super.updateItem(item, empty);
+                if(item != null) {
+                    setText(timeFormatter.format(item));
+                }
+            }
+        });
+
+
+        endCombo.setCellFactory(new Callback<ListView<LocalDateTime>, ListCell<LocalDateTime>>() {
+            @Override
+            public ListCell<LocalDateTime> call(ListView<LocalDateTime> listView) {
+                ListCell<LocalDateTime> cell = new ListCell<LocalDateTime>(){
+                    @Override
+                    public void updateItem(LocalDateTime time, boolean empty) {
+                        super.updateItem(time, empty);
+                        if (time != null) {
+                            setText(timeFormatter.format(time));
+                        }
+                        else {
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
+        endCombo.setButtonCell(new ListCell<LocalDateTime>(){
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty){
+                super.updateItem(item, empty);
+                if(item != null) {
+                    setText(timeFormatter.format(item));
+                }
+            }
+        });
+
+        ObservableList<LocalDateTime> startList = FXCollections.observableArrayList();
+        while (zonedStartLocal.isBefore(zonedEndLocal) || zonedStartLocal.isEqual(zonedEndLocal)) {
+            startList.add(zonedStartLocal.toLocalDateTime());
+            zonedStartLocal = zonedStartLocal.plusMinutes(15);
+        }
+        startCombo.setItems(startList);
+        endCombo.setItems(startList);
+
+
+
         userCombo.setItems(DBUser.getAllUsers());
         userCombo.getSelectionModel().selectFirst();
 
@@ -53,6 +135,11 @@ public class appointmentController implements Initializable {
 
         contactCombo.setItems(DBContact.getAllContacts());
         contactCombo.getSelectionModel().selectFirst();
+
+        ZoneId zone = ZoneId.systemDefault();
+        locationLabel.setText(zone.toString());
+
+
 
         try {
             appointment = scheduleController.initAppointment();
@@ -64,6 +151,12 @@ public class appointmentController implements Initializable {
             locationText.setText(appointment.getLocation());
             contactCombo.getSelectionModel().select(DBContact.lookupContact(appointment.getContactID()));
             typeText.setText(appointment.getType());
+
+            datePicker.setValue(appointment.getStartTime().toLocalDate());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+            startCombo.setValue(formatter.format(appointment.getStartTime()));
+            endCombo.setValue(formatter.format(appointment.getEndTime()));
         }
         catch (NullPointerException | SQLException e){
             appointmentIDText.setText("BOINK");
@@ -86,5 +179,15 @@ public class appointmentController implements Initializable {
         stage.setTitle("Scheduling Records");
         stage.setScene(scheduleScene);
         stage.show();
+    }
+
+    public void startComboUpdate(ActionEvent actionEvent) {
+//        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+//        System.out.println(timeFormatter.format((LocalDateTime) startCombo.getValue()));
+    }
+
+    public void endComboUpdate(ActionEvent actionEvent) {
+        //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
     }
 }

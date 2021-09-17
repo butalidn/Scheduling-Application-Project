@@ -115,7 +115,7 @@ public class scheduleController implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("type"));
 
         startCol.setCellValueFactory(new PropertyValueFactory<Appointment, LocalDateTime>("startTime"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm a");
         startCol.setCellFactory(tc -> new TableCell<TableView, LocalDateTime>() {
             @Override
             protected void updateItem(LocalDateTime date, boolean empty) {

@@ -14,7 +14,7 @@ public class DBConnection {
 
     private static final String jdbcURL = protocol + vendorName + ipAddress + dbName;
 
-    private static final String mySQLDriver = "com.mysql.cj.jdbc.Driver"; //Use com.mysql.cj.jdbc.Driver ?
+    private static final String mySQLDriver = "com.mysql.cj.jdbc.Driver";
     private static Connection conn = null;
 
     private static final String userName = "U08hMv";

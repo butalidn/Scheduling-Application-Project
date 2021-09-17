@@ -9,11 +9,13 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 /** JavaDoc Folder Location
  * Folder containing Javadoc comments is located  under \Butalid_C195_PA.zip\Butalid_C195_PA\javadoc
@@ -39,8 +41,18 @@ public class Main extends Application{
 
     public static void main(String[] args) throws SQLException {
         //Locale.setDefault(new Locale("fr"));
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
         DBConnection.startConnection();
+//
+//        // your local date/time with no timezone information
+//        LocalDateTime localNow = LocalDateTime.now();
+//// setting UTC as the timezone
+//        ZonedDateTime zonedUTC = localNow.atZone(ZoneId.of("America/Chicago"));
+//// converting to IST
+//        ZonedDateTime zonedIST = zonedUTC.withZoneSameInstant(ZoneId.of("EST"));
+//        System.out.println(zonedIST.toString());
+        //ZoneId.getAvailableZoneIds().stream().forEach(System.out::println);
 
 //        String sql = "SELECT * FROM appointments";
 //        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
