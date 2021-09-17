@@ -1,11 +1,10 @@
 package View_Controller;
 
-import DBAccess.DBAppointment;
-import DBAccess.DBContact;
-import DBAccess.DBCustomer;
-import DBAccess.DBUser;
+import DBAccess.*;
 import Model.Appointment;
+import Model.Country;
 import Model.Customer;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

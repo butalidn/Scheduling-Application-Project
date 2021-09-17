@@ -11,6 +11,12 @@ public class User {
         this.userID = userID;
     }
 
+    @Override
+    public String toString() {
+        return userName;
+    }
+
+
     public String getUserName() {
         return userName;
     }

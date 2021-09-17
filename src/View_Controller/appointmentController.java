@@ -1,6 +1,12 @@
 package View_Controller;
 
+import DBAccess.DBContact;
+import DBAccess.DBCustomer;
+import DBAccess.DBUser;
 import Model.Appointment;
+import Model.Contact;
+import Model.Customer;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class appointmentController implements Initializable {
@@ -38,11 +45,27 @@ public class appointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userCombo.setItems(DBUser.getAllUsers());
+        userCombo.getSelectionModel().selectFirst();
+
+        customerCombo.setItems(DBCustomer.getAllCustomers());
+        customerCombo.getSelectionModel().selectFirst();
+
+        contactCombo.setItems(DBContact.getAllContacts());
+        contactCombo.getSelectionModel().selectFirst();
+
         try {
             appointment = scheduleController.initAppointment();
             appointmentIDText.setText(Integer.toString(appointment.getAppointmentID()));
+            userCombo.getSelectionModel().select(DBUser.lookupUser(appointment.getUserID()));
+            customerCombo.getSelectionModel().select(DBCustomer.lookupCustomer(appointment.getCustomerID()));
+            titleText.setText(appointment.getTitle());
+            descriptionText.setText(appointment.getDescription());
+            locationText.setText(appointment.getLocation());
+            contactCombo.getSelectionModel().select(DBContact.lookupContact(appointment.getContactID()));
+            typeText.setText(appointment.getType());
         }
-        catch (NullPointerException e){
+        catch (NullPointerException | SQLException e){
             appointmentIDText.setText("BOINK");
         }
     }
