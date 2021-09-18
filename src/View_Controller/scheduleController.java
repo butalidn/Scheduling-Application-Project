@@ -106,6 +106,24 @@ public class scheduleController implements Initializable {
                     try {
                         setText(DBContact.lookupContact(id));
                     } catch (SQLException throwables) {
+                        System.out.println(id);
+                        throwables.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
+        customerCol.setCellFactory(tc -> new TableCell<TableView, Integer>() {
+            @Override
+            protected void updateItem(Integer id, boolean empty) {
+                super.updateItem(id, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    try {
+                        setText(DBCustomer.lookupCustomer(id));
+                    } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
                 }

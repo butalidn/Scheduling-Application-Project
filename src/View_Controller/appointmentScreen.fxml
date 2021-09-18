@@ -39,7 +39,7 @@
             <TextField fx:id="locationText" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="195.0" />
             <ComboBox fx:id="contactCombo" prefHeight="26.0" prefWidth="195.0" />
             <TextField fx:id="typeText" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="195.0" />
-            <DatePicker fx:id="datePicker" />
+            <DatePicker fx:id="datePicker" editable="false" />
             <HBox prefHeight="26.0" prefWidth="449.0">
                <children>
                   <ComboBox fx:id="startCombo" onAction="#startComboUpdate" prefWidth="150.0" />

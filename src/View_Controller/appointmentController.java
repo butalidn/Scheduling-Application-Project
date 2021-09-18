@@ -1,5 +1,6 @@
 package View_Controller;
 
+import DBAccess.DBAppointment;
 import DBAccess.DBContact;
 import DBAccess.DBCustomer;
 import DBAccess.DBUser;
@@ -45,6 +46,7 @@ public class appointmentController implements Initializable {
     @FXML private TextField appointmentIDText;
 
     private Appointment appointment = null;
+    private boolean isAdd = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -123,8 +125,9 @@ public class appointmentController implements Initializable {
             zonedStartLocal = zonedStartLocal.plusMinutes(15);
         }
         startCombo.setItems(startList);
+        startCombo.getSelectionModel().selectFirst();
         endCombo.setItems(startList);
-
+        endCombo.getSelectionModel().selectFirst();
 
 
         userCombo.setItems(DBUser.getAllUsers());
@@ -159,7 +162,7 @@ public class appointmentController implements Initializable {
             endCombo.setValue(formatter.format(appointment.getEndTime()));
         }
         catch (NullPointerException | SQLException e){
-            appointmentIDText.setText("BOINK");
+            isAdd = true;
         }
     }
 
@@ -173,12 +176,62 @@ public class appointmentController implements Initializable {
     }
 
     public void saveButtonClicked(ActionEvent actionEvent) throws IOException {
-        Parent scheduleParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
-        Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
-        Scene scheduleScene = new Scene(scheduleParent);
-        stage.setTitle("Scheduling Records");
-        stage.setScene(scheduleScene);
-        stage.show();
+        if (isAdd) {
+            try {
+                boolean goodInfo = true;
+
+                if (titleText.getText().trim().isEmpty()) {
+                    System.out.println("Missing title");
+                    goodInfo = false;
+                }
+                if (descriptionText.getText().trim().isEmpty()) {
+                    System.out.println("Missing description");
+                    goodInfo = false;
+                }
+                if (locationText.getText().trim().isEmpty()) {
+                    System.out.println("Missing location");
+                    goodInfo = false;
+                }
+                if (datePicker.getValue() == null) {
+                    System.out.println("Missing date");
+                    goodInfo = false;
+                }
+
+                if (goodInfo) {
+                    LocalTime start = ((LocalDateTime) startCombo.getSelectionModel().getSelectedItem()).toLocalTime();
+                    LocalTime end = ((LocalDateTime) endCombo.getSelectionModel().getSelectedItem()).toLocalTime();
+
+                    LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), start);
+                    LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), end);
+                    try {
+                        Appointment a = new Appointment(
+                                0,
+                                ((Customer)customerCombo.getSelectionModel().getSelectedItem()).getId(),
+                                ((User)userCombo.getSelectionModel().getSelectedItem()).getUserID(),
+                                titleText.getText(),
+                                descriptionText.getText(),
+                                locationText.getText(),
+                                ((Contact)contactCombo.getSelectionModel().getSelectedItem()).getId(),
+                                typeText.getText(),
+                                startTime,
+                                endTime);
+                        DBAppointment.addAppointment(a);
+                        Parent scheduleParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
+                        Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
+                        Scene scheduleScene = new Scene(scheduleParent);
+                        stage.setTitle("Scheduling Records");
+                        stage.setScene(scheduleScene);
+                        stage.show();
+
+                    } catch (Exception e) {
+                        System.out.println("Missing info");
+                    }
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Missing info");
+            }
+        }
     }
 
     public void startComboUpdate(ActionEvent actionEvent) {
