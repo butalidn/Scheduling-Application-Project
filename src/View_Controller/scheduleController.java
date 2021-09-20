@@ -5,6 +5,8 @@ import Model.Appointment;
 import Model.Country;
 import Model.Customer;
 import Model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +17,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class scheduleController implements Initializable {
@@ -46,6 +55,7 @@ public class scheduleController implements Initializable {
 
     private ToggleGroup sortToggleGroup;
     private static Appointment dataInit = null;
+    private static ObservableList<Appointment> appointmentList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -161,6 +171,16 @@ public class scheduleController implements Initializable {
 
         scheduleTable.setItems(DBAppointment.getAllAppointments());
         scheduleTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+//        LocalDateTime bob = LocalDateTime.now();
+//        System.out.println(bob);
+//        TemporalField woy = WeekFields.of(Locale.US).weekOfWeekBasedYear();
+//        int weekNumber = bob.get(woy);
+//        System.out.println(weekNumber);
+        //THIS IS FOR FIGURING OUT THE WEEK NUMBER
+
+
+        appointmentList = scheduleTable.getItems();
     }
 
     public void backButtonClicked(ActionEvent actionEvent) throws IOException {
@@ -201,6 +221,66 @@ public class scheduleController implements Initializable {
         return dataInit;
     }
 
+    public static ObservableList<Appointment> initAppointmentList() {
+        return appointmentList;
+    }
+
     public void rowSelected(MouseEvent mouseEvent) {
+    }
+
+    public void allRadioSelected(ActionEvent actionEvent) {
+        scheduleTable.getItems().clear();
+        scheduleTable.setItems(DBAppointment.getAllAppointments());
+    }
+
+    public void monthRadioSelected(ActionEvent actionEvent) {
+        ObservableList<Appointment> monthList = FXCollections.observableArrayList();
+
+        for (Appointment a: DBAppointment.getAllAppointments()){
+            if ((a.getStartTime().getMonth().equals(LocalDate.now().getMonth())) && (a.getStartTime().getYear() == LocalDate.now().getYear())) {
+                monthList.add(a);
+            }
+        }
+        scheduleTable.setItems(monthList);
+    }
+
+    public void weekRadioSelected(ActionEvent actionEvent) {
+        ObservableList<Appointment> weekList = FXCollections.observableArrayList();
+        LocalDateTime currentDate = LocalDateTime.now();
+        TemporalField woy = WeekFields.of(Locale.US).weekOfWeekBasedYear();
+        int weekNumber = currentDate.get(woy);
+
+        for (Appointment a: DBAppointment.getAllAppointments()){
+            int checkWeek = a.getStartTime().get(woy);
+            if ((weekNumber == checkWeek) && (a.getStartTime().getYear() == currentDate.getYear())) {
+                weekList.add(a);
+            }
+        }
+        scheduleTable.setItems(weekList);
+    }
+
+    public void deleteButtonClicked(ActionEvent actionEvent) {
+        if (scheduleTable.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Appointment");
+                alert.setContentText("Are you sure you want to delete this appointment?");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    Appointment a = (Appointment) scheduleTable.getSelectionModel().getSelectedItem();
+                    DBAppointment.removeAppointment(a);
+                    DBAppointment.getAllAppointments().remove(a);
+                    scheduleTable.setItems(DBAppointment.getAllAppointments());
+                }
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            System.out.println("Please select appointment to delete");
+        }
     }
 }

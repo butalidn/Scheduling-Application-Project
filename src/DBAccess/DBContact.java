@@ -43,4 +43,13 @@ public class DBContact {
         rs.next();
         return rs.getString("Contact_Name");
     }
+    public static int lookupContactID(String name) throws SQLException {
+        String sql = "select * from contacts where contact_name = ?;";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("Contact_ID");
+    }
+
 }

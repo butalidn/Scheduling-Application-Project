@@ -74,5 +74,13 @@ public class DBUser {
         rs.next();
         return rs.getString("User_Name");
     }
+    public static int lookupUserID(String name) throws SQLException {
+        String sql = "select * from users where user_name = ?;";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("User_ID");
+    }
 
 }

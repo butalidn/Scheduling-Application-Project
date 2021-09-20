@@ -113,4 +113,13 @@ public class DBCustomer {
         rs.next();
         return rs.getString("Customer_Name");
     }
+
+    public static int lookupCustomerID(String name) throws SQLException {
+        String sql = "select * from customers where customer_name = ?;";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("Customer_ID");
+    }
 }

@@ -70,4 +70,39 @@ public class DBAppointment {
         addStatement.setInt(9, a.getContactID());
         addStatement.execute();
     }
+
+    public static void updateAppointment(Appointment a) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+
+        String updateSQL = "update appointments set title = ?, description = ?, location = ?, type = ?, start = ?, end = ?," +
+                "customer_id = ?, user_id = ?, contact_id = ? where appointment_id = ?;";
+        DBQuery.setPreparedStatement(conn, updateSQL);
+        PreparedStatement updateStatement = DBQuery.getPreparedStatement();
+
+        Timestamp startTimeStamp = Timestamp.valueOf(a.getStartTime());
+        Timestamp endTimeStamp = Timestamp.valueOf(a.getEndTime());
+
+        updateStatement.setString(1, a.getTitle());
+        updateStatement.setString(2, a.getDescription());
+        updateStatement.setString(3, a.getLocation());
+        updateStatement.setString(4, a.getType());
+        updateStatement.setTimestamp(5, startTimeStamp);
+        updateStatement.setTimestamp(6,endTimeStamp);
+        updateStatement.setInt(7, a.getCustomerID());
+        updateStatement.setInt(8, a.getUserID());
+        updateStatement.setInt(9, a.getContactID());
+        updateStatement.setInt(10, a.getAppointmentID());
+
+        updateStatement.execute();
+    }
+
+    public static void removeAppointment(Appointment a) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+
+        String deleteSQL = "delete from appointments where appointment_id = ?;";
+        DBQuery.setPreparedStatement(conn, deleteSQL);
+        PreparedStatement deleteStatement = DBQuery.getPreparedStatement();
+        deleteStatement.setInt(1, a.getAppointmentID());
+        deleteStatement.execute();
+    }
 }

@@ -27,11 +27,13 @@
       </TableView>
       <HBox layoutX="599.0" layoutY="576.0" prefHeight="26.0" prefWidth="745.0" spacing="20.0">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" />
-            <Button fx:id="modifyButton" mnemonicParsing="false" onAction="#modifyButtonClicked" text="Modify" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
-            <HBox prefHeight="26.0" prefWidth="452.0" />
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefWidth="58.0" text="Back" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="26.0" prefWidth="73.0" text="Add" />
+            <Button fx:id="modifyButton" mnemonicParsing="false" onAction="#modifyButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Modify" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="95.0" text="Delete" />
+            <HBox prefHeight="26.0" prefWidth="47.0" />
+            <Button mnemonicParsing="false" prefWidth="106.0" text="Reports" />
+            <HBox prefHeight="26.0" prefWidth="185.0" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="86.0" text="Back" />
          </children>
       </HBox>
       <HBox layoutX="41.0" layoutY="580.0" spacing="20.0">
@@ -41,9 +43,9 @@
                   <Font name="System Bold" size="12.218181610107422" />
                </font>
             </Label>
-            <RadioButton fx:id="allRadio" mnemonicParsing="false" text="All" />
-            <RadioButton fx:id="monthRadio" mnemonicParsing="false" text="Month" />
-            <RadioButton fx:id="weekRadio" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Week" />
+            <RadioButton fx:id="allRadio" mnemonicParsing="false" onAction="#allRadioSelected" text="All" />
+            <RadioButton fx:id="monthRadio" mnemonicParsing="false" onAction="#monthRadioSelected" text="Current Month" />
+            <RadioButton fx:id="weekRadio" mnemonicParsing="false" onAction="#weekRadioSelected" prefHeight="17.0" prefWidth="168.0" text="Current Week" />
          </children>
       </HBox>
    </children>
