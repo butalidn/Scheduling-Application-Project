@@ -30,19 +30,19 @@ Customers can only be deleted once the customers has no existing appointments as
 
 Appointment Information
 ------------------------
-The user will be taken to the appointment screen. The table will intially display all appointments and their information. The user has the option to also filter the displayed appointment based on
+The user will be taken to the appointment screen. The table will initially display all appointments and their information. The user has the option to also filter the displayed appointment based on
 appointments that are in the same current week or current month. The user can add, modify a selected appointment, or delete an appointment. The add or modify options will take the user to another screen.
 If add is selected, the user can enter information into the given fields to create a new appointment. If modify is selected, the selected appointment's information will be loaded into the entry fields andthe user
 can make changes to the information and save them.
 
-From the intial appointment screen the user select the reports button to go to a reports screen.
+From the initial appointment screen the user can select the reports button to go to a reports screen.
 
 Reports Information
 --------------------
 This screen will give the user the option to generate three different reports.
-1) The user can generate how appointments there are with a given month and appointment type. The result will appear on the GUI.
+1) The user can generate how many appointments there are with a given month and appointment type. The result will appear on the GUI.
 2) The user can select a contact and view all appointments that are associated with the selected contact.
-3*) The user can select a date and view all appointments that are on the specified date. The table will intially display them in chronological order.
+3*) The user can select a date and view all appointments that are on the specified date. The table will initially display them in chronological order.
 *My Personal Report
 
 Exit Information
