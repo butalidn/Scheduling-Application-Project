@@ -28,7 +28,7 @@
       </Label>
       <Label layoutX="45.0" layoutY="86.0" text="Find number of appointments by month and type:" />
       <Label layoutX="571.0" layoutY="86.0" text="Number of appointments:" />
-      <ComboBox fx:id="contactCombo" layoutX="213.0" layoutY="184.0" onAction="#contactSelected" prefHeight="26.0" prefWidth="197.0" promptText="Select a contact" />
+      <ComboBox fx:id="contactCombo" layoutX="213.0" layoutY="184.0" prefHeight="26.0" prefWidth="197.0" promptText="Select a contact" />
       <TableView fx:id="reportTable" layoutX="28.0" layoutY="227.0" prefHeight="282.0" prefWidth="859.0">
         <columns>
           <TableColumn fx:id="appointmentIDCol" prefWidth="51.49090385437012" text="Apt. ID" />

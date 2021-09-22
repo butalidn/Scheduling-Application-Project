@@ -73,29 +73,6 @@ public class DBDivision {
         return filterList;
     }
 
-//    public static ObservableList<Division> filterDivisions(int lookupCountryID) {
-//        ObservableList<Division> filterList = FXCollections.observableArrayList();
-//
-//        try{
-//            String sql = "SELECT * FROM first_level_divisions where country_id = ?;";
-//            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-//            ps.setInt(1, lookupCountryID);
-//
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                int divisionID = rs.getInt("Division_ID");
-//                String divisionName = rs.getString("Division");
-//                int countryID = rs.getInt("Country_ID");
-//                Division D = new Division(divisionID, divisionName, countryID);
-//                filterList.add(D);
-//            }
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        return filterList;
-//    }
-
     /**
      * This method searches the countries table for a certain country ID
      * @param countryId This ID is used to find the matching country
@@ -109,15 +86,6 @@ public class DBDivision {
         rs.next();
         return rs.getString("Country");
     }
-
-//    public static String lookupCountry(String division) throws SQLException {
-//        String countryQuery = "select * from countries where country_id = (select country_id from first_level_divisions where division = ?);";
-//        PreparedStatement ps = DBConnection.getConnection().prepareStatement(countryQuery);
-//        ps.setString(1, division);
-//        ResultSet rs = ps.executeQuery();
-//        rs.next();
-//        return rs.getString("Country");
-//    }
 
     /**
      * Looks for the ID of a division using the name of a certain division

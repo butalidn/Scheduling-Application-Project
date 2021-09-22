@@ -60,8 +60,12 @@ public class reportScreenController implements Initializable {
     private ObservableList<Appointment> appointments;
     private ObservableList<Contact> contacts;
 
+
     /**
      * Sets up the tables and the combo boxes on this screen. The lists of appointments and contacts are also loaded in.
+     *
+     * LAMBDA USAGE: On line 171, a lambda expression is used to set the action of when a item is selected from the combo box.
+     * This was done to immediately show the usage of the combo box after it it is set and to help with readability.
      * @param url
      * @param resourceBundle
      */
@@ -162,7 +166,17 @@ public class reportScreenController implements Initializable {
         }
 
         typeCombo.setItems(types);
+
         contactCombo.setItems(contacts);
+        contactCombo.setOnAction(e -> {
+            ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+            for (Appointment a: appointments) {
+                if (a.getContactID() == ((Contact) contactCombo.getSelectionModel().getSelectedItem()).getId()) {
+                    appointmentList.add(a);
+                }
+            }
+            reportTable.setItems(appointmentList);
+        });
     }
 
     /**
@@ -219,20 +233,5 @@ public class reportScreenController implements Initializable {
         stage.setTitle("Scheduling Records");
         stage.setScene(appointmentScene);
         stage.show();
-    }
-
-    /**
-     * Handles when a contact is selected in the contacts combo box.
-     * Shows all appointments that are associated with the selected contact
-     * @param actionEvent
-     */
-    public void contactSelected(ActionEvent actionEvent) {
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-        for (Appointment a: appointments) {
-            if (a.getContactID() == ((Contact) contactCombo.getSelectionModel().getSelectedItem()).getId()) {
-                appointmentList.add(a);
-            }
-        }
-        reportTable.setItems(appointmentList);
     }
 }

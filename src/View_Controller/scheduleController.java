@@ -63,6 +63,9 @@ public class scheduleController implements Initializable {
     /**
      * The table view and its columns and the radio buttons are set up. All appointments are initially loaded into the table.
      * User can also filter appointments based on current week or month.
+     *
+     * LAMBDA USAGE: On line 83, a lambda expression is used to alter the cell factory of the customer column in the schedule table view.
+     * This is used in order to display the customer's name instead of their id while also preserving the customer object.
      * @param url
      * @param resourceBundle
      */

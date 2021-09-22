@@ -76,21 +76,6 @@ public class customerController implements Initializable {
         for (Country c: DBCountry.getAllCountries()) {
             countryCombo.getItems().add(c.getName());
         }
-
-//        for (Division D: DBDivision.getAllDivisions()) {
-//            firstLevelCombo.getItems().add(D.getDivision());
-//        }
-
-//        for (Division D: DBDivision.getAllDivisions()) {
-//            try {
-//                if (D.getCountry().equals(countryCombo.getSelectionModel().getSelectedItem().toString())) {
-//                    firstLevelCombo.getItems().add(D.getDivision());
-//
-//                }
-//            }
-//            catch (Exception e) {System.out.println(e.getMessage());}
-//        }
-
     }
 
     /**
