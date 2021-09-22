@@ -10,7 +10,7 @@ Version 1.0
 
 IDE: IntelliJ Community Edition 2021.1.1
 JDK: Java SE 11.0.4
-JavaFX: JavaFX-SDK-11.0.1
+JavaFX: JavaFX-SDK-11.0.2
 MySQL: mysql-connector-java:8.0.222
 
 Instructions:

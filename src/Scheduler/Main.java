@@ -41,7 +41,7 @@ public class Main extends Application{
      * A connection is opened and closed with the database
      */
     public static void main(String[] args) throws SQLException {
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));  For testing french language
         DBConnection.startConnection();
         launch(args);
         DBConnection.closeConnection();

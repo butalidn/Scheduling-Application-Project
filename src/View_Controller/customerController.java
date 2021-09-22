@@ -1,9 +1,7 @@
 package View_Controller;
 
-import DBAccess.DBCountry;
-import DBAccess.DBCustomer;
-import DBAccess.DBDivision;
-import DBAccess.DBUser;
+import DBAccess.*;
+import Model.Appointment;
 import Model.Country;
 import Model.Customer;
 import Model.Division;
@@ -243,42 +241,54 @@ public class customerController implements Initializable {
      * @param actionEvent
      */
     public void deleteButtonClicked(ActionEvent actionEvent) {
+        boolean goodDelete = true;
         if (customerTable.getSelectionModel().getSelectedItem() != null) {
-            try {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Customer");
-                alert.setContentText("Are you sure you want to delete this customer? Make sure all associated appointments are removed first");
-                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                Optional<ButtonType> result = alert.showAndWait();
-
-                if (result.get() == ButtonType.OK) {
-                    Customer c = (Customer) customerTable.getSelectionModel().getSelectedItem();
-                    DBCustomer.removeCustomer(c);
-                    DBCustomer.getAllCustomers().remove(c);
-                    customerTable.setItems(DBCustomer.getAllCustomers());
-                    customerText.setText("");
-                    nameText.setText("");
-                    numberText.setText("");
-                    addressText.setText("");
-                    postalText.setText("");
-
-
-                    firstLevelCombo.getSelectionModel().clearSelection();
-                    countryCombo.getSelectionModel().clearSelection();
-                    firstLevelCombo.setPromptText("Select a country first");
+            for (Appointment a : DBAppointment.getAllAppointments()) {
+                if (a.getCustomerID() == ((Customer) customerTable.getSelectionModel().getSelectedItem()).getId()) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error");
+                    alert.setContentText("Appointment(s) associated with customer must be deleted");
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    Optional<ButtonType> result = alert.showAndWait();
+                    goodDelete = false;
                 }
-            } catch (SQLIntegrityConstraintViolationException e) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Error");
-                alert.setContentText("Appointment(s) associated with customer must be deleted");
-                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                Optional<ButtonType> result = alert.showAndWait();
             }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            if (goodDelete) {
+                try {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Customer");
+                    alert.setContentText("Are you sure you want to delete this customer? Make sure all associated appointments are removed first");
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.get() == ButtonType.OK) {
+                        Customer c = (Customer) customerTable.getSelectionModel().getSelectedItem();
+                        DBCustomer.removeCustomer(c);
+                        DBCustomer.getAllCustomers().remove(c);
+                        customerTable.setItems(DBCustomer.getAllCustomers());
+                        customerText.setText("");
+                        nameText.setText("");
+                        numberText.setText("");
+                        addressText.setText("");
+                        postalText.setText("");
+
+
+                        firstLevelCombo.getSelectionModel().clearSelection();
+                        countryCombo.getSelectionModel().clearSelection();
+                        firstLevelCombo.setPromptText("Select a country first");
+                    }
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error");
+                    alert.setContentText("Appointment(s) associated with customer must be deleted");
+                    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                    Optional<ButtonType> result = alert.showAndWait();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
 
             }
+        }
         else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
