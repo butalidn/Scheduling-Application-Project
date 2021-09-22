@@ -42,7 +42,7 @@
             <DatePicker fx:id="datePicker" editable="false" />
             <HBox prefHeight="26.0" prefWidth="449.0">
                <children>
-                  <ComboBox fx:id="startCombo" onAction="#startComboUpdate" prefWidth="150.0" />
+                  <ComboBox fx:id="startCombo" prefWidth="150.0" />
                   <Label prefHeight="237.0" prefWidth="106.0" text="Your timezone is:">
                      <padding>
                         <Insets left="10.0" />
@@ -57,7 +57,7 @@
             </HBox>
             <HBox prefHeight="0.0" prefWidth="374.0">
                <children>
-                  <ComboBox fx:id="endCombo" onAction="#endComboUpdate" prefWidth="150.0" />
+                  <ComboBox fx:id="endCombo" prefWidth="150.0" />
                </children>
             </HBox>
          </children>

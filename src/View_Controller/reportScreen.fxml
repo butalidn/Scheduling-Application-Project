@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="816.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.reportScreenController">
+   <children>
+      <HBox layoutX="45.0" layoutY="109.0" prefHeight="26.0" prefWidth="519.0">
+         <children>
+            <ComboBox fx:id="monthCombo" prefHeight="26.0" prefWidth="161.0" promptText="Select a month:" />
+            <HBox prefHeight="26.0" prefWidth="20.0" />
+            <ComboBox fx:id="typeCombo" prefHeight="26.0" prefWidth="167.0" promptText="Select a type:" />
+            <HBox prefHeight="26.0" prefWidth="25.0" />
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitPressed" prefHeight="26.0" prefWidth="80.0" text="Submit" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" layoutX="434.0" layoutY="14.0" text="Reports">
+         <font>
+            <Font name="System Bold" size="12.218181610107422" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="86.0" text="Find number of appointments by month and type:" />
+      <Label layoutX="571.0" layoutY="86.0" text="Number of appointments:" />
+      <ComboBox fx:id="contactCombo" layoutX="213.0" layoutY="184.0" onAction="#contactSelected" prefHeight="26.0" prefWidth="197.0" promptText="Select a contact" />
+      <TableView fx:id="reportTable" layoutX="28.0" layoutY="227.0" prefHeight="282.0" prefWidth="859.0">
+        <columns>
+          <TableColumn fx:id="appointmentIDCol" prefWidth="51.49090385437012" text="Apt. ID" />
+          <TableColumn fx:id="titleCol" minWidth="1.74542236328125" prefWidth="122.18180084228516" text="Title" />
+            <TableColumn fx:id="typeCol" minWidth="0.0" prefWidth="132.65452575683594" text="Type" />
+            <TableColumn fx:id="descriptionCol" prefWidth="200.727294921875" text="Description" />
+            <TableColumn fx:id="startCol" prefWidth="123.05462646484375" text="Start Time" />
+            <TableColumn fx:id="endCol" prefWidth="127.4180908203125" text="End Ttime" />
+            <TableColumn fx:id="customerIDCol" prefWidth="99.49094808279096" text="Customer ID" />
+        </columns>
+      </TableView>
+      <Label layoutX="28.0" layoutY="188.0" text="Filter appointments by contact:" />
+      <Label fx:id="appointmentLabel" alignment="CENTER" layoutX="624.0" layoutY="109.0" prefHeight="26.0" prefWidth="30.0" text="0" />
+      <DatePicker fx:id="datePicker" editable="false" layoutX="23.0" layoutY="547.0" onAction="#datePicked" promptText="Select a date:" />
+      <Button fx:id="backButton" layoutX="822.0" layoutY="775.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="26.0" prefWidth="64.0" text="Back" />
+      <TableView fx:id="dateReportTable" layoutX="232.0" layoutY="522.0" prefHeight="243.0" prefWidth="654.0">
+        <columns>
+          <TableColumn fx:id="dateAppointmentCol" prefWidth="101.23631286621094" text="Appointment ID" />
+          <TableColumn fx:id="dateStartCol" prefWidth="82.036376953125" text="Start Time" />
+            <TableColumn fx:id="dateEndCol" prefWidth="76.79998779296875" text="End Time" />
+            <TableColumn fx:id="dateTitleCol" prefWidth="110.8363037109375" text="Title" />
+            <TableColumn fx:id="dateLocationCol" prefWidth="144.87274169921875" text="Location" />
+            <TableColumn fx:id="dateCustomerCol" prefWidth="139.6363525390625" text="Customer" />
+        </columns>
+      </TableView>
+      <Label layoutX="36.0" layoutY="522.0" text="Filter appointments by date:" />
+   </children>
+</AnchorPane>

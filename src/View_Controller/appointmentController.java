@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -26,10 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class appointmentController implements Initializable {
     @FXML private Label locationLabel;
@@ -122,9 +120,6 @@ public class appointmentController implements Initializable {
             }
         });
 
-//        HashMap<LocalDateTime, Integer> timeList = new HashMap<>();
-//        int i = 0;
-
         ObservableList<LocalDateTime> startList = FXCollections.observableArrayList();
         while (zonedStartLocal.isBefore(zonedEndLocal) || zonedStartLocal.isEqual(zonedEndLocal)) {
             startList.add(zonedStartLocal.toLocalDateTime());
@@ -186,60 +181,66 @@ public class appointmentController implements Initializable {
     public void saveButtonClicked(ActionEvent actionEvent) throws IOException {
         try {
             boolean goodInfo = true;
+            String message = "";
+            LocalTime start = null;
+            LocalTime end = null;
 
             if (titleText.getText().trim().isEmpty()) {
-                System.out.println("Missing title");
+                message += "Missing title\n";
                 goodInfo = false;
             }
             if (descriptionText.getText().trim().isEmpty()) {
-                System.out.println("Missing description");
+                message += "Missing description\n";
                 goodInfo = false;
             }
             if (locationText.getText().trim().isEmpty()) {
-                System.out.println("Missing location");
+                message += "Missing location\n";
                 goodInfo = false;
             }
-            if (datePicker.getValue() == null) {
-                System.out.println("Missing date");
+            if (typeText.getText().trim().isEmpty()) {
+                message += "Missing Title\n";
                 goodInfo = false;
             }
 
             LocalDateTime startLDT = (LocalDateTime) startCombo.getSelectionModel().getSelectedItem();
             LocalDateTime endLDT = (LocalDateTime) endCombo.getSelectionModel().getSelectedItem();
-
-            startLDT = LocalDateTime.of(datePicker.getValue(), startLDT.toLocalTime());
-            endLDT = LocalDateTime.of(datePicker.getValue(), endLDT.toLocalTime());
-
-            LocalTime start = startLDT.toLocalTime();
-            LocalTime end = endLDT.toLocalTime();
-
-            if (start.isAfter(end)) {
-                System.out.println("The end time is before the start time");
+            if (startLDT.isAfter(endLDT)) {
+                message += "The end time is before the start time\n";
                 goodInfo = false;
             }
-            else if (start.equals(end)) {
-                System.out.println("The start and end time cannot be the same");
+            else if (startLDT.equals(endLDT)) {
+                message += "The start and end time cannot be the same\n";
                 goodInfo = false;
             }
+            if (datePicker.getValue() == null) {
+                message += "Missing date\n";
+                goodInfo = false;
+            }
+            else {
+                startLDT = LocalDateTime.of(datePicker.getValue(), startLDT.toLocalTime());
+                endLDT = LocalDateTime.of(datePicker.getValue(), endLDT.toLocalTime());
 
-            for (Appointment a: DBAppointment.getAllAppointments()) {
-                if (isAdd) {
-                    if ((startLDT.isBefore(a.getEndTime()) && a.getStartTime().isBefore(endLDT)) ||
-                            (startLDT.isAfter(a.getStartTime()) && startLDT.isBefore(a.getEndTime())) ||
-                            (endLDT.isAfter(a.getStartTime()) && endLDT.isBefore(a.getEndTime()))) {
-                        goodInfo = false;
-                        System.out.println("Appointment conflicts with another appointment");
-                        break;
-                    }
-                }
-                else {
-                    if (a.getAppointmentID() != Integer.valueOf(appointmentIDText.getText())) {
+                start = startLDT.toLocalTime();
+                end = endLDT.toLocalTime();
+                for (Appointment a: DBAppointment.getAllAppointments()) {
+                    if (isAdd) {
                         if ((startLDT.isBefore(a.getEndTime()) && a.getStartTime().isBefore(endLDT)) ||
                                 (startLDT.isAfter(a.getStartTime()) && startLDT.isBefore(a.getEndTime())) ||
                                 (endLDT.isAfter(a.getStartTime()) && endLDT.isBefore(a.getEndTime()))) {
                             goodInfo = false;
-                            System.out.println("Appointment conflicts with another appointment");
+                            message += "Appointment conflicts with another appointment\n";
                             break;
+                        }
+                    }
+                    else {
+                        if (a.getAppointmentID() != Integer.valueOf(appointmentIDText.getText())) {
+                            if ((startLDT.isBefore(a.getEndTime()) && a.getStartTime().isBefore(endLDT)) ||
+                                    (startLDT.isAfter(a.getStartTime()) && startLDT.isBefore(a.getEndTime())) ||
+                                    (endLDT.isAfter(a.getStartTime()) && endLDT.isBefore(a.getEndTime()))) {
+                                goodInfo = false;
+                                message += "Appointment conflicts with another appointment\n";
+                                break;
+                            }
                         }
                     }
                 }
@@ -288,19 +289,17 @@ public class appointmentController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setContentText(message);
+                alert.setHeaderText("Invalid info");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void startComboUpdate(ActionEvent actionEvent) {
-//        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-//        System.out.println(timeFormatter.format((LocalDateTime) startCombo.getValue()));
-    }
-
-    public void endComboUpdate(ActionEvent actionEvent) {
-        //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-
     }
 }

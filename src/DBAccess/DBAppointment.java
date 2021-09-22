@@ -16,10 +16,15 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is used to access from appointment info from the database
+ */
 public class DBAppointment {
+    /** Generates a list of all appointments in the database and puts them into a list
+     * @return Returns an observable list of appointments
+     */
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-
         try {
             String sql = "SELECT * FROM appointments";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -48,6 +53,11 @@ public class DBAppointment {
         return appointmentList;
     }
 
+    /**
+     * Inserts an appointment object into the database
+     * @param a The appointment to be inserted
+     * @throws SQLException SQL Exception for SQL query
+     */
     public static void addAppointment(Appointment a) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -71,6 +81,11 @@ public class DBAppointment {
         addStatement.execute();
     }
 
+    /**
+     * Updates appropriate appointment in database using appointment ID
+     * @param a The appointment to be updated
+     * @throws SQLException SQL exception for query
+     */
     public static void updateAppointment(Appointment a) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -96,9 +111,13 @@ public class DBAppointment {
         updateStatement.execute();
     }
 
+    /**
+     * Deletes appointment from database using appointment ID
+     * @param a The appointment to be deleted
+     * @throws SQLException Exception for SQL exception
+     */
     public static void removeAppointment(Appointment a) throws SQLException {
         Connection conn = DBConnection.getConnection();
-
         String deleteSQL = "delete from appointments where appointment_id = ?;";
         DBQuery.setPreparedStatement(conn, deleteSQL);
         PreparedStatement deleteStatement = DBQuery.getPreparedStatement();

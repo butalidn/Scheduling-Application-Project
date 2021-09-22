@@ -111,27 +111,28 @@ public class customerController implements Initializable {
     }
 
     public void addButtonClicked(ActionEvent actionEvent) throws SQLException {
+        String message = "";
         try {
             boolean goodInfo = true;
 
             if (nameText.getText().trim().isEmpty()) {
-                System.out.println("Missing name");
+                message += "Missing name\n";
                 goodInfo = false;
             }
             if (addressText.getText().trim().isEmpty()) {
-                System.out.println("Missing address");
+                message += "Missing address\n";
                 goodInfo = false;
             }
             if (postalText.getText().trim().isEmpty()) {
-                System.out.println("Missing postal");
+                message += "Missing postal\n";
                 goodInfo = false;
             }
             if (numberText.getText().trim().isEmpty()) {
-                System.out.println("Missing number");
+                message += "Missing number\n";
                 goodInfo = false;
             }
             if (countryCombo.getSelectionModel().getSelectedItem() == null) {
-                System.out.println("Missing country");
+                message += "Missing country\n";
                 goodInfo = false;
             }
             if (goodInfo) {
@@ -148,39 +149,45 @@ public class customerController implements Initializable {
 
                     firstLevelCombo.getSelectionModel().clearSelection();
                     countryCombo.getSelectionModel().clearSelection();
-                    //firstLevelCombo.setPromptText("Select a country first");
                 } catch (Exception e) {
-                    System.out.println("Missing info");
+                    e.printStackTrace();
                 }
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Information");
+                alert.setContentText(message);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
             }
         }
         catch (Exception e) {
-            System.out.println("Missing info");
+            e.printStackTrace();
         }
     }
 
     public void updateButtonClicked(ActionEvent actionEvent) throws SQLException {
-        try {
+        String message = "";
+        if (customerTable.getSelectionModel().getSelectedItem() != null) {
             boolean goodInfo = true;
-
             if (nameText.getText().trim().isEmpty()) {
-                System.out.println("Missing name");
+                message += "Missing name\n";
                 goodInfo = false;
             }
             if (addressText.getText().trim().isEmpty()) {
-                System.out.println("Missing address");
+                message += "Missing address\n";
                 goodInfo = false;
             }
             if (postalText.getText().trim().isEmpty()) {
-                System.out.println("Missing postal");
+                message += "Missing postal\n";
                 goodInfo = false;
             }
             if (numberText.getText().trim().isEmpty()) {
-                System.out.println("Missing number");
+                message += "Missing number\n";
                 goodInfo = false;
             }
             if (countryCombo.getSelectionModel().getSelectedItem() == null) {
-                System.out.println("Missing country");
+                message += "Missing country\n";
                 goodInfo = false;
             }
             if (goodInfo) {
@@ -197,12 +204,22 @@ public class customerController implements Initializable {
                     customerTable.refresh();
 
                 } catch (NullPointerException e) {
-                    System.out.println("Error. Customer not selected");
+                    e.printStackTrace();
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Information");
+                alert.setContentText(message);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
             }
         }
-        catch (Exception e) {
-            System.out.println("Error. Customer not selected");
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Customer not selected");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
 
@@ -220,11 +237,11 @@ public class customerController implements Initializable {
                     DBCustomer.removeCustomer(c);
                     DBCustomer.getAllCustomers().remove(c);
                     customerTable.setItems(DBCustomer.getAllCustomers());
-                    customerText.setText(null);
-                    nameText.setText(null);
-                    numberText.setText(null);
-                    addressText.setText(null);
-                    postalText.setText(null);
+                    customerText.setText("");
+                    nameText.setText("");
+                    numberText.setText("");
+                    addressText.setText("");
+                    postalText.setText("");
 
 
                     firstLevelCombo.getSelectionModel().clearSelection();
@@ -232,7 +249,11 @@ public class customerController implements Initializable {
                     firstLevelCombo.setPromptText("Select a country first");
                 }
             } catch (SQLIntegrityConstraintViolationException e) {
-                System.out.println("Appointment(s) associated with customer must be deleted");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment(s) associated with customer must be deleted");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -240,12 +261,12 @@ public class customerController implements Initializable {
 
             }
         else {
-            System.out.println("Please select a row to delete");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Please select a row to delete");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            Optional<ButtonType> result = alert.showAndWait();
         }
-    }
-
-    public void firstLevelSelected(ActionEvent actionEvent) throws SQLException {
-        //countryCombo.getSelectionModel().select(DBDivision.lookupCountry(firstLevelCombo.getSelectionModel().getSelectedItem().toString()));
     }
 
     public void countrySelected(ActionEvent actionEvent) {

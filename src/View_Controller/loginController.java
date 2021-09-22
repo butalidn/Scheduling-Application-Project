@@ -11,10 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -35,14 +38,6 @@ public class loginController implements Initializable {
         ZoneId zone = ZoneId.systemDefault();
         locationLabel.setText(zone.toString());
 
-        /*Locale defaultLocale = Locale.getDefault();
-        Locale frLocale = new Locale("fr");
-
-        ResourceBundle defaultMessages = ResourceBundle.getBundle("MessagesBundle", defaultLocale);
-        ResourceBundle frMessages = ResourceBundle.getBundle("MessagesBundle", frLocale);
-        System.out.println(defaultMessages.getString("Hi there"));
-        System.out.println(frMessages.getString("Hi there"));*/
-
         try {
             rb = ResourceBundle.getBundle("Resources/Nat", Locale.getDefault());
             if (Locale.getDefault().getLanguage().equals("fr")) {
@@ -57,27 +52,16 @@ public class loginController implements Initializable {
 
     public void submitButtonClicked(ActionEvent actionEvent) throws IOException, SQLException {
         boolean nextScreen = false;
-
-        /*ObservableList<Countries> countryList = DBCountries.getAllCountries();       FROM WEBINAR
-        for (Countries C: countryList) {
-            System.out.println("Country ID:" + C.getID() + " Name: " + C.getName());
-        }
-
-
-        ObservableList<User> userList = DBUser.getAllUsers();
-        for(User U: userList) {
-            System.out.println("User ID: " + U.getUserID());
-            System.out.println("Username: " + U.getUserName());
-            System.out.println("Password: " + U.getPassword());
-        } */
-
         String userName = userText.getText();
         String password = passwordText.getText();
+        String status;
 
         if (DBUser.searchUser(userName, password)) {
+            status = "Successful";
             nextScreen = true;
         }
         else {
+            status = "Invalid";
             String errorTitle = "Error";
             String errorContext = "User and/or password not found. Try again";
             String errorHeader = "User Not Found";
@@ -93,6 +77,18 @@ public class loginController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
         }
+
+        FileWriter loginWriter = new FileWriter("login_activity.txt", true);
+        PrintWriter loginPW = new PrintWriter(loginWriter);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+        ZonedDateTime zdtNow = ZonedDateTime.now(ZoneOffset.UTC);
+        if (userName.isBlank()) {
+            userName = "null";
+        }
+        String loginText = status + " login by " + userName + " at " + dateTimeFormatter.format(zdtNow) + " UTC";
+        loginPW.println(loginText);
+        loginPW.close();
 
         if (nextScreen) {
             Parent manageParent = FXMLLoader.load(getClass().getResource("manageScreen.fxml"));

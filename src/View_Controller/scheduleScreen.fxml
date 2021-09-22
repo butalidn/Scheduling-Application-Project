@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="636.0" prefWidth="1475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.scheduleController">
    <children>
-      <TableView fx:id="scheduleTable" layoutX="41.0" layoutY="42.0" onMouseClicked="#rowSelected" prefHeight="511.0" prefWidth="1392.0">
+      <TableView fx:id="scheduleTable" layoutX="41.0" layoutY="42.0" prefHeight="511.0" prefWidth="1392.0">
         <columns>
           <TableColumn fx:id="appointmentCol" prefWidth="118.6908950805664" text="Appointment_ID" />
             <TableColumn fx:id="customerCol" minWidth="0.0" prefWidth="89.890869140625" text="Customer" />
@@ -31,7 +31,7 @@
             <Button fx:id="modifyButton" mnemonicParsing="false" onAction="#modifyButtonClicked" prefHeight="26.0" prefWidth="92.0" text="Modify" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="26.0" prefWidth="95.0" text="Delete" />
             <HBox prefHeight="26.0" prefWidth="47.0" />
-            <Button mnemonicParsing="false" prefWidth="106.0" text="Reports" />
+            <Button mnemonicParsing="false" onAction="#reportButtonClicked" prefWidth="106.0" text="Reports" />
             <HBox prefHeight="26.0" prefWidth="185.0" />
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="26.0" prefWidth="86.0" text="Back" />
          </children>

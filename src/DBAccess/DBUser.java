@@ -8,9 +8,17 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ * This class is for accessing the database for user information from the users table.
+ * The private static member is the user that is logged into the application
+ */
 public class DBUser {
     private static User user;
 
+    /**
+     * This generates a list of all the users in the users table
+     * @return Returns an observable list of users
+     */
     public static ObservableList<User> getAllUsers() {
         ObservableList<User> userList = FXCollections.observableArrayList();
 
@@ -35,6 +43,13 @@ public class DBUser {
         return userList;
     }
 
+    /**
+     * Confirms whether or not the given username and password are a matching combination in the database
+     * @param searchUser The given user to be searched
+     * @param searchPassword The given password to be searched
+     * @return Returns a boolean based on if the given combination is in the users table
+     * @throws SQLException
+     */
     public static boolean searchUser(String searchUser, String searchPassword) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -62,10 +77,20 @@ public class DBUser {
 
     }
 
+    /**
+     * Getter for the user member
+     * @return Returns a User object
+     */
     public static User getUser() {
         return user;
     }
 
+    /**
+     * Searches for the string name of a user based on an ID
+     * @param id The given ID of the user to be searched for
+     * @return Returns the string of the name of the user with the matching ID
+     * @throws SQLException SQL exception for the select query
+     */
     public static String lookupUser(int id) throws SQLException {
         String sql = "select * from users where user_id = ?;";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -74,6 +99,13 @@ public class DBUser {
         rs.next();
         return rs.getString("User_Name");
     }
+
+    /**
+     * Searches for the ID of the given username
+     * @param name The username of the user to be searched for
+     * @return Returns the ID of the user with the matching username
+     * @throws SQLException SQL exception for select query
+     */
     public static int lookupUserID(String name) throws SQLException {
         String sql = "select * from users where user_name = ?;";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);

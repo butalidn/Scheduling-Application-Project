@@ -10,7 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ *This class is for accessing information from the countries table in the database
+ */
 public class DBCountry {
+    /**
+     * This generates an observable list of countries from the database
+     * @return Returns a list of countries
+     */
     public static ObservableList<Country> getAllCountries() {
         ObservableList<Country> clist = FXCollections.observableArrayList();
 
@@ -32,20 +39,5 @@ public class DBCountry {
         }
 
         return clist;
-    }
-
-    public static void checkDateConversion() {
-        System.out.println("CREATE DATE TEST");
-        String sql = "select Create_Date from countries";
-        try {
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Timestamp ts = rs.getTimestamp("Create_Date");
-                System.out.println("CD: " + ts.toLocalDateTime().toString());
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 }

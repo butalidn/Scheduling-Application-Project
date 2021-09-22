@@ -33,6 +33,9 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** /
+ * 
+ */
 public class scheduleController implements Initializable {
     @FXML private TableColumn appointmentCol;
     @FXML private TableColumn customerCol;
@@ -123,23 +126,6 @@ public class scheduleController implements Initializable {
             }
         });
 
-
-        customerCol.setCellFactory(tc -> new TableCell<TableView, Integer>() {
-            @Override
-            protected void updateItem(Integer id, boolean empty) {
-                super.updateItem(id, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    try {
-                        setText(DBCustomer.lookupCustomer(id));
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                }
-            }
-        });
-
         typeCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("type"));
 
         startCol.setCellValueFactory(new PropertyValueFactory<Appointment, LocalDateTime>("startTime"));
@@ -171,15 +157,6 @@ public class scheduleController implements Initializable {
 
         scheduleTable.setItems(DBAppointment.getAllAppointments());
         scheduleTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-//        LocalDateTime bob = LocalDateTime.now();
-//        System.out.println(bob);
-//        TemporalField woy = WeekFields.of(Locale.US).weekOfWeekBasedYear();
-//        int weekNumber = bob.get(woy);
-//        System.out.println(weekNumber);
-        //THIS IS FOR FIGURING OUT THE WEEK NUMBER
-
-
         appointmentList = scheduleTable.getItems();
     }
 
@@ -213,7 +190,11 @@ public class scheduleController implements Initializable {
             stage.show();
         }
         else {
-            System.out.println("Select an appointment");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Select an appointment");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
     
@@ -223,9 +204,6 @@ public class scheduleController implements Initializable {
 
     public static ObservableList<Appointment> initAppointmentList() {
         return appointmentList;
-    }
-
-    public void rowSelected(MouseEvent mouseEvent) {
     }
 
     public void allRadioSelected(ActionEvent actionEvent) {
@@ -280,7 +258,20 @@ public class scheduleController implements Initializable {
             }
         }
         else {
-            System.out.println("Please select appointment to delete");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("Please select appointment to delete");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            Optional<ButtonType> result = alert.showAndWait();
         }
+    }
+
+    public void reportButtonClicked(ActionEvent actionEvent) throws IOException {
+        Parent appointmentParent = FXMLLoader.load(getClass().getResource("reportScreen.fxml"));
+        Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
+        Scene appointmentScene = new Scene(appointmentParent);
+        stage.setTitle("Reports");
+        stage.setScene(appointmentScene);
+        stage.show();
     }
 }

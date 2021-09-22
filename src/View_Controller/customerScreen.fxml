@@ -48,7 +48,7 @@
             <HBox prefHeight="26.0" prefWidth="1071.0" spacing="10.0">
                <children>
                   <Label prefHeight="174.0" prefWidth="104.0" text="First-Level Division:" />
-                  <ComboBox fx:id="firstLevelCombo" onAction="#firstLevelSelected" prefHeight="26.0" prefWidth="226.0" />
+                  <ComboBox fx:id="firstLevelCombo" prefHeight="26.0" prefWidth="226.0" />
                   <Label prefHeight="116.0" prefWidth="46.0" text="Country:" />
                   <ComboBox fx:id="countryCombo" onAction="#countrySelected" prefHeight="26.0" prefWidth="181.0" />
                   <HBox prefHeight="26.0" prefWidth="156.0" />

@@ -1,7 +1,13 @@
 package View_Controller;
 
+import DBAccess.DBAppointment;
+import DBAccess.DBContact;
 import DBAccess.DBUser;
+import Model.Appointment;
+import Model.Contact;
 import Model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +15,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class manageController implements Initializable {
@@ -23,11 +36,49 @@ public class manageController implements Initializable {
     @FXML private Button appointmentButton;
 
     private User user;
+    private LocalDateTime loginTime;
+    private static boolean loginMessage = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<Appointment> appointmentList = DBAppointment.getAllAppointments();
+        loginTime = LocalDateTime.now();
         this.user = DBUser.getUser();
         userLabel.setText(user.getUserName() + "!");
+
+        long timeBetween;
+        boolean upcomingAppointment = false;
+
+        if (loginMessage) {
+            for (Appointment a : appointmentList) {
+                if (a.getStartTime().getYear() == loginTime.getYear() && a.getStartTime().getMonth().equals(loginTime.getMonth()) && user.getUserID() == a.getUserID()) {
+                    timeBetween = ChronoUnit.MINUTES.between(loginTime, a.getStartTime());
+                    if (timeBetween <= 15 && timeBetween >= 0) {
+                        int appointmentID = a.getAppointmentID();
+                        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+                        String appointmentTime = timeFormatter.format(a.getStartTime());
+
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Upcoming Appointment");
+                        alert.setHeaderText("Reminder!");
+                        alert.setContentText("You have an appointment coming up soon. \nAppointment ID: " + appointmentID + "\nAppointment time: " + appointmentTime);
+                        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        upcomingAppointment = true;
+                        break;
+                    }
+                }
+            }
+            if (!upcomingAppointment) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("No Upcoming Appointments");
+                alert.setHeaderText("Welcome");
+                alert.setContentText("You have no upcoming appointments");
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        loginMessage = false;
     }
 
     public void customerButtonClicked(ActionEvent actionEvent) throws IOException {

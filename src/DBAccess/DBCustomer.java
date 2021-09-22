@@ -11,7 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is for accessing information from the customers table in the database
+ */
 public class DBCustomer {
+    /**
+     * This method generates a list of all customers in the database
+     * @return Returns an observable list of customers
+     */
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -53,6 +60,11 @@ public class DBCustomer {
         return customerList;
     }
 
+    /**
+     * Updates a customer row in the customer table
+     * @param c The given customer to be updated. Uses the customer ID to update the entry
+     * @throws SQLException Exception for SQL query
+     */
     public static void updateCustomer(Customer c) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -80,6 +92,11 @@ public class DBCustomer {
         updateStatement.execute();
     }
 
+    /**
+     * Inserts a new customer record into the customer table
+     * @param c The given customer to be inserted into the customers table
+     * @throws SQLException SQL exception for insert query
+     */
     public static void addCustomer(Customer c) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -95,6 +112,11 @@ public class DBCustomer {
         addStatement.execute();
     }
 
+    /**
+     * Removes a customer from the customers table
+     * @param c The customer to be deleted from the customers table
+     * @throws SQLException The SQL exception for deletion query
+     */
     public static void removeCustomer(Customer c) throws SQLException {
         Connection conn = DBConnection.getConnection();
 
@@ -105,6 +127,12 @@ public class DBCustomer {
         deleteStatement.execute();
     }
 
+    /**
+     * Looks in the customers table for the name of the customer
+     * @param id Method uses this ID to find a specific customer in the customers table
+     * @return Returns the string of the name of the customer with the matching ID
+     * @throws SQLException SQL exception for the select query
+     */
     public static String lookupCustomer(int id) throws SQLException {
         String sql = "select * from customers where customer_id = ?;";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -114,6 +142,12 @@ public class DBCustomer {
         return rs.getString("Customer_Name");
     }
 
+    /**
+     * Looks in the customers table for the ID of a customer
+     * @param name Method uses this name to find a specific customer in the customers table
+     * @return Returns the ID of the customer with the matching name
+     * @throws SQLException SQL exception for the select query
+     */
     public static int lookupCustomerID(String name) throws SQLException {
         String sql = "select * from customers where customer_name = ?;";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
