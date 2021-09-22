@@ -21,7 +21,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +28,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * This class controls the logic of the add/modify appointments screen
+ */
 public class appointmentController implements Initializable {
     @FXML private Label locationLabel;
     @FXML private ComboBox startCombo;
@@ -49,6 +51,13 @@ public class appointmentController implements Initializable {
     private Appointment appointment = null;
     private boolean isAdd = false;
 
+    /**
+     * This sets up the combo boxes and loads in the appropriate information. Depends on whether the user
+     * is updating or adding an appointment. The time combo boxes only contains times that are within
+     * the business' hours in the local time of the user.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
@@ -145,8 +154,6 @@ public class appointmentController implements Initializable {
         ZoneId zone = ZoneId.systemDefault();
         locationLabel.setText(zone.toString());
 
-
-
         try {
             appointment = scheduleController.initAppointment();
             appointmentIDText.setText(Integer.toString(appointment.getAppointmentID()));
@@ -169,6 +176,11 @@ public class appointmentController implements Initializable {
         }
     }
 
+    /**
+     * Handles when the cancel button is clicked. User is taken back to the scheduling screen
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent scheduleParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
@@ -178,6 +190,12 @@ public class appointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Handles when the save button is clicked. Checks if the given information by the user is valid.
+     * If valid, an appointment is either updated or added in the appointments table.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void saveButtonClicked(ActionEvent actionEvent) throws IOException {
         try {
             boolean goodInfo = true;

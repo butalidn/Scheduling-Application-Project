@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-//From Connecting to DB webinar
+/**
+ * This class is for establishing a connection with the given database.
+ * Uses given information from PA.
+ * From 'Connecting to DB' webinar.
+ */
 public class DBConnection {
-    //JDBC Url Components
     private static final String protocol = "jdbc";
     private static final String vendorName = ":mysql:";
     private static final String ipAddress = "//wgudb.ucertify.com:3306/";
@@ -20,6 +23,10 @@ public class DBConnection {
     private static final String userName = "U08hMv";
     private static final String password = "53689292981";
 
+    /**
+     * Creates a connection with the database using given username and password
+     * @return Returns a connection object
+     */
     public static Connection startConnection() {
         try{
             Class.forName(mySQLDriver);
@@ -32,11 +39,13 @@ public class DBConnection {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
         return conn;
 
     }
 
+    /**
+     * This closes the connection with the database
+     */
     public static void closeConnection() {
         try {
             conn.close();
@@ -45,6 +54,10 @@ public class DBConnection {
         }
     }
 
+    /**
+     * The getter for conn
+     * @return Returns connection conn
+     */
     public static Connection getConnection() {
         return conn;
     }

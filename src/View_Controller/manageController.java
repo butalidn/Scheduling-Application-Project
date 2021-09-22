@@ -30,6 +30,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles the logic of manage screen. Keeps track of which user is logged in and if a login message
+ * has been displayed yet.
+ */
 public class manageController implements Initializable {
     @FXML private Label userLabel;
     @FXML private Button customerButton;
@@ -39,6 +43,11 @@ public class manageController implements Initializable {
     private LocalDateTime loginTime;
     private static boolean loginMessage = true;
 
+    /**
+     * Checks if there are any appointments within 15 minutes of the user's login time.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Appointment> appointmentList = DBAppointment.getAllAppointments();
@@ -81,6 +90,11 @@ public class manageController implements Initializable {
         loginMessage = false;
     }
 
+    /**
+     * Handles when the customer button is clicked. Sends user to the customer screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void customerButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent customerParent = FXMLLoader.load(getClass().getResource("customerScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
@@ -90,6 +104,11 @@ public class manageController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Handles when the appointment button is clicked. Sends user to the appointment screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void appointmentButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent appointmentParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());

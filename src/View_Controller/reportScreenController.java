@@ -30,6 +30,9 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Handles the logic of the report screen
+ */
 public class reportScreenController implements Initializable {
     @FXML private DatePicker datePicker;
     @FXML private Button backButton;
@@ -57,6 +60,11 @@ public class reportScreenController implements Initializable {
     private ObservableList<Appointment> appointments;
     private ObservableList<Contact> contacts;
 
+    /**
+     * Sets up the tables and the combo boxes on this screen. The lists of appointments and contacts are also loaded in.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointments = DBAppointment.getAllAppointments();
@@ -157,6 +165,10 @@ public class reportScreenController implements Initializable {
         contactCombo.setItems(contacts);
     }
 
+    /**
+     * Handles when a date is picked. Shows all appointments that are on the selected date.
+     * @param actionEvent
+     */
     public void datePicked(ActionEvent actionEvent) {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         for (Appointment a: appointments) {
@@ -168,6 +180,11 @@ public class reportScreenController implements Initializable {
         dateReportTable.getSortOrder().add(dateStartCol);
     }
 
+    /**
+     * Handles when the submit button is pressed. Checks if a month and type are selected.
+     * Gives how many appointments have the given month and type.
+     * @param actionEvent
+     */
     public void submitPressed(ActionEvent actionEvent) {
         int counter = 0;
         if (monthCombo.getSelectionModel().getSelectedItem() != null && typeCombo.getSelectionModel().getSelectedItem() != null) {
@@ -190,6 +207,11 @@ public class reportScreenController implements Initializable {
         }
     }
 
+    /**
+     * Handles when the back button is pressed. Sends user to the schedule screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backPressed(ActionEvent actionEvent) throws IOException {
         Parent appointmentParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
@@ -199,6 +221,11 @@ public class reportScreenController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Handles when a contact is selected in the contacts combo box.
+     * Shows all appointments that are associated with the selected contact
+     * @param actionEvent
+     */
     public void contactSelected(ActionEvent actionEvent) {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         for (Appointment a: appointments) {

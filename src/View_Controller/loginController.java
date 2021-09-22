@@ -22,6 +22,9 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles the logic for the login screen.
+ */
 public class loginController implements Initializable {
     @FXML private Label userLabel;
     @FXML private Label passwordLabel;
@@ -33,6 +36,11 @@ public class loginController implements Initializable {
 
     private ResourceBundle rb;
 
+    /**
+     * The appropriate language bundle is used based on the location of the user. The location zone of user is also displayed.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId zone = ZoneId.systemDefault();
@@ -50,6 +58,14 @@ public class loginController implements Initializable {
         catch (Exception e) {}
     }
 
+    /**
+     * Handles when the submit button is clicked. Allows the user to the next screen if the username and password are valid.
+     * The username and timestamp information are also recorded into login_activity.txt.
+     * This file is located in \Butalid_C195_PA
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void submitButtonClicked(ActionEvent actionEvent) throws IOException, SQLException {
         boolean nextScreen = false;
         String userName = userText.getText();

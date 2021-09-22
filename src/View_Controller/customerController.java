@@ -28,6 +28,9 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles the logic of the customer screen.
+ */
 public class customerController implements Initializable {
     @FXML private TableView customerTable;
     @FXML private TableColumn customerIDCol;
@@ -49,6 +52,11 @@ public class customerController implements Initializable {
     @FXML private Button deleteButton;
     @FXML private Button backButton;
 
+    /**
+     * The customer table and combo boxes are set up. The list of customers are loaded into the table
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerIDCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("id"));
@@ -85,6 +93,11 @@ public class customerController implements Initializable {
 
     }
 
+    /**
+     * Handles when the back button is clicked. Sends the user back to the manage screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent manageParent = FXMLLoader.load(getClass().getResource("manageScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
@@ -94,7 +107,12 @@ public class customerController implements Initializable {
         stage.show();
     }
 
-
+    /**
+     * This handles when the user selects a row on the table. When they do, the information from the selected
+     * customer is loaded into the appropriate fields
+     * @param mouseEvent
+     * @throws Exception
+     */
     public void rowClicked(MouseEvent mouseEvent) throws Exception{
         try {
             customerText.setText(Integer.toString(((Customer) customerTable.getSelectionModel().getSelectedItem()).getId()));
@@ -110,6 +128,11 @@ public class customerController implements Initializable {
         catch (Exception e) {}
     }
 
+    /**
+     * Handles when the add button is clicked. Checks for logical errors and creates a new customer object if valid
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void addButtonClicked(ActionEvent actionEvent) throws SQLException {
         String message = "";
         try {
@@ -166,6 +189,12 @@ public class customerController implements Initializable {
         }
     }
 
+    /**
+     * Handles when the update button is clicked. Checks for logical errors. Updates the appropriate customer record
+     * if information is valid.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void updateButtonClicked(ActionEvent actionEvent) throws SQLException {
         String message = "";
         if (customerTable.getSelectionModel().getSelectedItem() != null) {
@@ -223,6 +252,11 @@ public class customerController implements Initializable {
         }
     }
 
+    /**
+     * Handles when the delete button is clicked. If a row selected, the user has to confirm if they want to delete a customer.
+     * All appointments connected to the customer must be deleted first. If all is valid, the customer is deleted from the customers table.
+     * @param actionEvent
+     */
     public void deleteButtonClicked(ActionEvent actionEvent) {
         if (customerTable.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -269,6 +303,11 @@ public class customerController implements Initializable {
         }
     }
 
+    /**
+     * This handles when a country is selected in the country combo box. When a country is selected, the first level
+     * divisions that are located in the country are listed in the first level division combo box.
+     * @param actionEvent
+     */
     public void countrySelected(ActionEvent actionEvent) {
         firstLevelCombo.getItems().clear();
         if (countryCombo.getSelectionModel().getSelectedItem() != null) {

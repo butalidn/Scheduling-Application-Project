@@ -34,7 +34,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** /
- * 
+ * This class handles the logic of the schedule screen
  */
 public class scheduleController implements Initializable {
     @FXML private TableColumn appointmentCol;
@@ -60,6 +60,12 @@ public class scheduleController implements Initializable {
     private static Appointment dataInit = null;
     private static ObservableList<Appointment> appointmentList;
 
+    /**
+     * The table view and its columns and the radio buttons are set up. All appointments are initially loaded into the table.
+     * User can also filter appointments based on current week or month.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sortToggleGroup = new ToggleGroup();
@@ -160,6 +166,11 @@ public class scheduleController implements Initializable {
         appointmentList = scheduleTable.getItems();
     }
 
+    /**
+     * Handles when the back button is clicked. Sends user to manage screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent manageParent = FXMLLoader.load(getClass().getResource("manageScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
@@ -169,6 +180,11 @@ public class scheduleController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Handles when the add button is clicked. Sets the selected appointment to null and sends user to appointment screen
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addButtonClicked(ActionEvent actionEvent) throws IOException {
         dataInit = null;
         Parent appointmentParent = FXMLLoader.load(getClass().getResource("appointmentScreen.fxml"));
@@ -179,6 +195,12 @@ public class scheduleController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Handles when the modify button is clicked. Makes sure that a row is selected. The selected appointment is saved
+     * to be used on the next screen
+     * @param actionEvent
+     * @throws IOException
+     */
     public void modifyButtonClicked(ActionEvent actionEvent) throws IOException {
         if (scheduleTable.getSelectionModel().getSelectedItem() != null) {
             dataInit = (Appointment) scheduleTable.getSelectionModel().getSelectedItem();
@@ -197,20 +219,33 @@ public class scheduleController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
         }
     }
-    
+
+    /**
+     * Getter for selected appointment
+     * @return Returns an appointment object
+     */
     public static Appointment initAppointment() {
         return dataInit;
     }
 
-    public static ObservableList<Appointment> initAppointmentList() {
-        return appointmentList;
-    }
+//    public static ObservableList<Appointment> initAppointmentList() {
+//        return appointmentList;
+//    }
 
+    /**
+     * Handles when the all radio button is selected. All appointments are loaded into the table.
+     * @param actionEvent
+     */
     public void allRadioSelected(ActionEvent actionEvent) {
         scheduleTable.getItems().clear();
         scheduleTable.setItems(DBAppointment.getAllAppointments());
     }
 
+    /**
+     * Handles when the month radio button is selected. Appointments that occur in the current month are loaded into
+     * the table.
+     * @param actionEvent
+     */
     public void monthRadioSelected(ActionEvent actionEvent) {
         ObservableList<Appointment> monthList = FXCollections.observableArrayList();
 
@@ -222,6 +257,11 @@ public class scheduleController implements Initializable {
         scheduleTable.setItems(monthList);
     }
 
+    /**
+     * Handles when the week radio button is selected. Appointments that occur in the current week are
+     * loaded into the table.
+     * @param actionEvent
+     */
     public void weekRadioSelected(ActionEvent actionEvent) {
         ObservableList<Appointment> weekList = FXCollections.observableArrayList();
         LocalDateTime currentDate = LocalDateTime.now();
@@ -237,6 +277,11 @@ public class scheduleController implements Initializable {
         scheduleTable.setItems(weekList);
     }
 
+    /**
+     * Handles when the delete button is clicked. Checks if a row is selected. If user confirms, the selected appointment
+     * is removed from the appointment table
+     * @param actionEvent
+     */
     public void deleteButtonClicked(ActionEvent actionEvent) {
         if (scheduleTable.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -266,6 +311,11 @@ public class scheduleController implements Initializable {
         }
     }
 
+    /**
+     * Handles when the report button is clicked. Sends user to the report screen
+     * @param actionEvent
+     * @throws IOException
+     */
     public void reportButtonClicked(ActionEvent actionEvent) throws IOException {
         Parent appointmentParent = FXMLLoader.load(getClass().getResource("reportScreen.fxml"));
         Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
