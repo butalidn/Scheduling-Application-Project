@@ -67,11 +67,8 @@ public class DBAppointment {
         DBQuery.setPreparedStatement(conn, addSQL);
         PreparedStatement addStatement = DBQuery.getPreparedStatement();
 
-        ZonedDateTime zonedStartUTC = a.getStartTime().atZone(ZoneId.of("UTC"));
-        ZonedDateTime zonedEndUTC = a.getEndTime().atZone(ZoneId.of("UTC"));
-
-        Timestamp startTimeStamp = Timestamp.valueOf(zonedStartUTC.toLocalDateTime());
-        Timestamp endTimeStamp = Timestamp.valueOf(zonedEndUTC.toLocalDateTime());
+        Timestamp startTimeStamp = Timestamp.valueOf(a.getStartTime());
+        Timestamp endTimeStamp = Timestamp.valueOf(a.getEndTime());
 
         addStatement.setString(1, a.getTitle());
         addStatement.setString(2, a.getDescription());
@@ -98,11 +95,8 @@ public class DBAppointment {
         DBQuery.setPreparedStatement(conn, updateSQL);
         PreparedStatement updateStatement = DBQuery.getPreparedStatement();
 
-        ZonedDateTime zonedStartUTC = a.getStartTime().atZone(ZoneId.of("UTC"));
-        ZonedDateTime zonedEndUTC = a.getEndTime().atZone(ZoneId.of("UTC"));
-
-        Timestamp startTimeStamp = Timestamp.valueOf(zonedStartUTC.toLocalDateTime());
-        Timestamp endTimeStamp = Timestamp.valueOf(zonedEndUTC.toLocalDateTime());
+        Timestamp startTimeStamp = Timestamp.valueOf(a.getStartTime());
+        Timestamp endTimeStamp = Timestamp.valueOf(a.getEndTime());
 
         updateStatement.setString(1, a.getTitle());
         updateStatement.setString(2, a.getDescription());

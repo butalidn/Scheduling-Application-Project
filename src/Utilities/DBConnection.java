@@ -15,7 +15,7 @@ public class DBConnection {
     private static final String ipAddress = "//localhost/";
     private static final String dbName = "client_schedule";
 
-    private static final String jdbcURL = protocol + vendorName + ipAddress + dbName;
+    private static final String jdbcURL = protocol + vendorName + ipAddress + dbName + "?connectionTimeZone = SERVER";
 
     private static final String mySQLDriver = "com.mysql.cj.jdbc.Driver";
     private static Connection conn = null;
