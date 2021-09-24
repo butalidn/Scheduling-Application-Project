@@ -290,7 +290,9 @@ public class scheduleController implements Initializable {
             try {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Delete Appointment");
-                alert.setContentText("Are you sure you want to delete this appointment?");
+                alert.setContentText("Are you sure you want to delete this appointment?" +
+                        "\nAppointment ID: " + ((Appointment) scheduleTable.getSelectionModel().getSelectedItem()).getAppointmentID() +
+                        "\nAppointment Type: " + ((Appointment) scheduleTable.getSelectionModel().getSelectedItem()).getType());
                 alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 Optional<ButtonType> result = alert.showAndWait();
 
