@@ -12,16 +12,16 @@ import java.sql.SQLException;
 public class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendorName = ":mysql:";
-    private static final String ipAddress = "//localhost/";
-    private static final String dbName = "client_schedule";
+    private static final String ipAddress = "//wgudb.ucertify.com:3306/";
+    private static final String dbName = "WJ08hMv";
 
     private static final String jdbcURL = protocol + vendorName + ipAddress + dbName + "?connectionTimeZone = SERVER";
 
     private static final String mySQLDriver = "com.mysql.cj.jdbc.Driver";
     private static Connection conn = null;
 
-    private static final String userName = "sqlUser";
-    private static final String password = "Passw0rd!";
+    private static final String userName = "U08hMv";
+    private static final String password = "53689292981";
 
     /**
      * Creates a connection with the database using given username and password

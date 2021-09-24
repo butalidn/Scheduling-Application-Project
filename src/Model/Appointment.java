@@ -191,6 +191,7 @@ public class Appointment {
      * @param startTime The local date time to be set
      */
     public void setStartTime(LocalDateTime startTime) {
+        zoneID = ZoneId.systemDefault();
         this.startTime = startTime;
     }
 
@@ -209,6 +210,7 @@ public class Appointment {
      * @param endTime The local date time to be set
      */
     public void setEndTime(LocalDateTime endTime) {
+        zoneID = ZoneId.systemDefault();
         this.endTime = endTime;
     }
 }

@@ -283,18 +283,27 @@ public class appointmentController implements Initializable {
                         DBAppointment.addAppointment(a);
                     }
                     else {
-                        Appointment a = new Appointment(
-                                appointment.getAppointmentID(),
-                                DBCustomer.lookupCustomerID(customerCombo.getSelectionModel().getSelectedItem().toString()),
-                                DBUser.lookupUserID(userCombo.getSelectionModel().getSelectedItem().toString()),
-                                titleText.getText(),
-                                descriptionText.getText(),
-                                locationText.getText(),
-                                DBContact.lookupContactID(contactCombo.getSelectionModel().getSelectedItem().toString()),
-                                typeText.getText(),
-                                startTime,
-                                endTime);
-                        DBAppointment.updateAppointment(a);
+//                        Appointment a = new Appointment(
+//                                appointment.getAppointmentID(),
+//                                DBCustomer.lookupCustomerID(customerCombo.getSelectionModel().getSelectedItem().toString()),
+//                                DBUser.lookupUserID(userCombo.getSelectionModel().getSelectedItem().toString()),
+//                                titleText.getText(),
+//                                descriptionText.getText(),
+//                                locationText.getText(),
+//                                DBContact.lookupContactID(contactCombo.getSelectionModel().getSelectedItem().toString()),
+//                                typeText.getText(),
+//                                startTime,
+//                                endTime);
+                        appointment.setCustomerID(DBCustomer.lookupCustomerID(customerCombo.getSelectionModel().getSelectedItem().toString()));
+                        appointment.setUserID(DBUser.lookupUserID(userCombo.getSelectionModel().getSelectedItem().toString()));
+                        appointment.setTitle(titleText.getText());
+                        appointment.setDescription(descriptionText.getText());
+                        appointment.setLocation(locationText.getText());
+                        appointment.setContactID(DBContact.lookupContactID(contactCombo.getSelectionModel().getSelectedItem().toString()));
+                        appointment.setType(typeText.getText());
+                        appointment.setStartTime(startTime);
+                        appointment.setEndTime(endTime);
+                        DBAppointment.updateAppointment(appointment);
                     }
                     Parent scheduleParent = FXMLLoader.load(getClass().getResource("scheduleScreen.fxml"));
                     Stage stage = (Stage) (((Node)actionEvent.getSource()).getScene().getWindow());
