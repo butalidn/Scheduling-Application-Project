@@ -1,6 +1,8 @@
 package Model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * This class is for an appointment object.
@@ -17,6 +19,7 @@ public class Appointment {
     private String type;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private ZoneId zoneID;
 
     /**
      * This is the constructor method for an Appointment object
@@ -42,6 +45,7 @@ public class Appointment {
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
+        zoneID = ZoneId.systemDefault();
     }
 
     /**
@@ -177,7 +181,9 @@ public class Appointment {
      * @return Returns a local date time of the start time
      */
     public LocalDateTime getStartTime() {
-        return startTime;
+        ZonedDateTime zdt = startTime.atZone(zoneID);
+        ZonedDateTime zdtLocal = zdt.withZoneSameInstant(ZoneId.systemDefault());
+        return zdtLocal.toLocalDateTime();
     }
 
     /**
@@ -193,7 +199,9 @@ public class Appointment {
      * @return Returns the local date time of the end time
      */
     public LocalDateTime getEndTime() {
-        return endTime;
+        ZonedDateTime zdt = endTime.atZone(zoneID);
+        ZonedDateTime zdtLocal = zdt.withZoneSameInstant(ZoneId.systemDefault());
+        return zdtLocal.toLocalDateTime();
     }
 
     /**
