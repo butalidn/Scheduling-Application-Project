@@ -1,5 +1,5 @@
 # **Scheduling Application: Software II**
-Project Overvie
+Project Overview
 ----------------
 This project was for Software II. The application allows the user to manage appointment and customer information. The user is conneted to a MySQL database and can add, modify, and delete customer or appointment data that is also reflected in the database. They can also generate various reports.
 
