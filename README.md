@@ -29,7 +29,7 @@ then exit the pop up message and choose whether to access customer or appointmen
 ### Customer Information
 ---------------------
 
-![Screenshot (77)](https://user-images.githubusercontent.com/69161658/172487784-e170ecc2-d0c9-4b5f-95a5-5b4ced474cb8.png)
+![Picture1](https://user-images.githubusercontent.com/69161658/172488186-f66af535-9c64-45cb-9397-d72c58571beb.png)
 
 The user will be taken to the customer screen. The table will contain all existing customers in the database with their corresponding information. The user can add, update, or delete customers
 from this table that will also add, update, or delete the customer from the database. When the user selects an entry, that customer's information will be loaded in the respective fields.
