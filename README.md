@@ -44,7 +44,7 @@ Customers can only be deleted once the customers has no existing appointments as
 The user will be taken to the appointment screen. The table will initially display all appointments and their information. The user has the option to also filter the displayed appointment based on
 appointments that are in the same current week or current month. The user can add, modify a selected appointment, or delete an appointment. The add or modify options will take the user to another screen.
 
-![Screenshot (75)](https://user-images.githubusercontent.com/69161658/172487949-148bd04d-a633-432d-a5e4-d128f539bb12.png)
+![Picture3](https://user-images.githubusercontent.com/69161658/172488529-29ce800f-d164-4ac1-97a4-9b17e9cb763b.png)
 
 If add is selected, the user can enter information into the given fields to create a new appointment. If modify is selected, the selected appointment's information will be loaded into the entry fields andthe user
 can make changes to the information and save them.
