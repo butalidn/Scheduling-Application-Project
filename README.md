@@ -1,7 +1,7 @@
 # **Scheduling Application: Software II**
 Project Overview
 ----------------
-This project was for Software II. The application allows the user to manage appointment and customer information. The user is conneted to a MySQL database and can add, modify, and delete customer or appointment data that is also reflected in the database. They can also generate various reports.
+This project was for Software II. The application allows the user to manage appointment and customer information. The user is connected to a MySQL database and can add, modify, and delete customer or appointment data that is also reflected in the database. They can also generate various reports.
 
 #### Project specifications:
 * IDE: IntelliJ Community Edition 2021.1.1
