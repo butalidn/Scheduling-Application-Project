@@ -10,7 +10,8 @@ JavaFX: JavaFX-SDK-11.0.2
 MySQL: mysql-connector-java:8.0.222
 
 
-Instructions:
+**Instructions:**
+
 Launch application through main method in the "Main" class. The user will be taken to the login screen. The login screen will be in English or French, depending on the user's location.
 The user can either enter "test" for both the username and password, or "admin" for both username and password. Login activity will be recorded in the login_activity.txt file located
 in the root folder of the project (\Butalid_C195_PA). 
