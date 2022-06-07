@@ -54,7 +54,7 @@ From the initial appointment screen the user can select the reports button to go
 ### Reports Information
 --------------------
 
-![Screenshot (73)](https://user-images.githubusercontent.com/69161658/172487909-3e908c5f-f46e-44b0-b43e-a89c1189624c.png)
+![Picture4](https://user-images.githubusercontent.com/69161658/172488662-d154b1e8-1fe0-494f-8003-657a72b5435a.png)
 
 This screen will give the user the option to generate three different reports.
 1) The user can generate how many appointments there are with a given month and appointment type. The result will appear on the GUI.
