@@ -40,8 +40,8 @@ Reports Information
 This screen will give the user the option to generate three different reports.
 1) The user can generate how many appointments there are with a given month and appointment type. The result will appear on the GUI.
 2) The user can select a contact and view all appointments that are associated with the selected contact.
-3*) The user can select a date and view all appointments that are on the specified date. The table will initially display them in chronological order.
-*My Personal Report
+3) The user can select a date and view all appointments that are on the specified date. The table will initially display them in chronological order.
+
 
 Exit Information
 -----------------
