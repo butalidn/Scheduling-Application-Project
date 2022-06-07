@@ -14,8 +14,10 @@ This project was for Software II. The application allows the user to manage appo
 
 ## ***WARNING***
 The MySQL database the project was previously connected to is no longer active. Additional code must be written to connect to another MySQL database must be
-written in order for the application to fully function.
+written in order for the application to fully function. 
 
+
+The following text was written as part of the project guidelines:
 
 **Instructions:**
 
