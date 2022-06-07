@@ -1,16 +1,14 @@
 # **Scheduling Application: Software II**
 This application allows the user to manage appointment and customer information. The user is connected to a database and can add, modify, and delete customer or appointment data. They can also generate various reports.
 
-Created By: 
-Nikolas Butalid
-nbutali@wgu.edu
-Version 1.0
-9/22/2021
-
 IDE: IntelliJ Community Edition 2021.1.1
+
 JDK: Java SE 11.0.4
+
 JavaFX: JavaFX-SDK-11.0.2
+
 MySQL: mysql-connector-java:8.0.222
+
 
 Instructions:
 Launch application through main method in the "Main" class. The user will be taken to the login screen. The login screen will be in English or French, depending on the user's location.
