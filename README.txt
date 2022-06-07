@@ -1,5 +1,4 @@
-C195 PA
-"Scheduler"
+# **Scheduling Application: Software II**
 This application allows the user to manage appointment and customer information. The user is connected to a database and can add, modify, and delete customer or appointment data. They can also generate various reports.
 
 Created By: 
