@@ -17,6 +17,8 @@ The MySQL database the project was previously connected to is no longer active. 
 
 ### Instructions
 
+![Screenshot (74)](https://user-images.githubusercontent.com/69161658/172487684-cfba943c-53b4-4b34-8e1d-9cabc578bb13.png)
+
 Launch application through main method in the "Main" class. The user will be taken to the login screen. The login screen will be in English or French, depending on the user's location.
 The user can either enter "test" for both the username and password, or "admin" for both username and password. Login activity will be recorded in the login_activity.txt file located
 in the root folder of the project (\Butalid_C195_PA). 
