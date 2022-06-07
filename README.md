@@ -4,10 +4,10 @@ Project Overvie
 This project was for Software II. The application allows the user to manage appointment and customer information. The user is conneted to a MySQL database and can add, modify, and delete customer or appointment data that is also reflected in the database. They can also generate various reports.
 
 #### Project specifications:
-IDE: IntelliJ Community Edition 2021.1.1
-JDK: Java SE 11.0.4
-JavaFX: JavaFX-SDK-11.0.2
-MySQL: mysql-connector-java:8.0.222
+* IDE: IntelliJ Community Edition 2021.1.1
+* JDK: Java SE 11.0.4
+* JavaFX: JavaFX-SDK-11.0.2
+* MySQL: mysql-connector-java:8.0.222
 
 ## ***WARNING***
 The MySQL database the project was previously connected to is no longer active. Additional code must be written to connect to another MySQL database must be
