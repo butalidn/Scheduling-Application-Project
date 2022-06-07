@@ -14,7 +14,7 @@ The MySQL database the project was previously connected to is no longer active. 
 written in order for the application to fully function. 
 
 
-The following text was written as part of the project guidelines:
+***The following text was written as part of the project guidelines:***
 
 ### Instructions
 
