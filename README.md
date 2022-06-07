@@ -28,6 +28,9 @@ then exit the pop up message and choose whether to access customer or appointmen
 
 ### Customer Information
 ---------------------
+
+![Screenshot (77)](https://user-images.githubusercontent.com/69161658/172487784-e170ecc2-d0c9-4b5f-95a5-5b4ced474cb8.png)
+
 The user will be taken to the customer screen. The table will contain all existing customers in the database with their corresponding information. The user can add, update, or delete customers
 from this table that will also add, update, or delete the customer from the database. When the user selects an entry, that customer's information will be loaded in the respective fields.
 *In order to select a first-level division, a country must be selected first. The first-level division combo box will only display divisions that are located in the selected country.
@@ -35,8 +38,14 @@ Customers can only be deleted once the customers has no existing appointments as
 
 ### Appointment Information
 ------------------------
+
+![Screenshot (76)](https://user-images.githubusercontent.com/69161658/172487869-a73c3c04-75f6-481b-8b89-75f0485ce8e3.png)
+
 The user will be taken to the appointment screen. The table will initially display all appointments and their information. The user has the option to also filter the displayed appointment based on
 appointments that are in the same current week or current month. The user can add, modify a selected appointment, or delete an appointment. The add or modify options will take the user to another screen.
+
+![Screenshot (75)](https://user-images.githubusercontent.com/69161658/172487949-148bd04d-a633-432d-a5e4-d128f539bb12.png)
+
 If add is selected, the user can enter information into the given fields to create a new appointment. If modify is selected, the selected appointment's information will be loaded into the entry fields andthe user
 can make changes to the information and save them.
 
@@ -44,6 +53,9 @@ From the initial appointment screen the user can select the reports button to go
 
 ### Reports Information
 --------------------
+
+![Screenshot (73)](https://user-images.githubusercontent.com/69161658/172487909-3e908c5f-f46e-44b0-b43e-a89c1189624c.png)
+
 This screen will give the user the option to generate three different reports.
 1) The user can generate how many appointments there are with a given month and appointment type. The result will appear on the GUI.
 2) The user can select a contact and view all appointments that are associated with the selected contact.
